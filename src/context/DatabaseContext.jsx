@@ -412,6 +412,11 @@ export const DatabaseProvider = ({ children }) => {
     showToast("Beat removido da loja.", "info");
   };
 
+  const updateBeat = (beatId, updatedData) => {
+    setBeats(prev => prev.map(b => b.id === beatId ? { ...b, ...updatedData } : b));
+    showToast("Beat atualizado com sucesso!", "success");
+  };
+
   return (
     <DatabaseContext.Provider
       value={{
@@ -440,7 +445,9 @@ export const DatabaseProvider = ({ children }) => {
         updateStudent,
         deleteStudent,
         addBeat,
+        updateBeat,
         deleteBeat,
+
         addPlugin,
         updatePlugin,
         deletePlugin,

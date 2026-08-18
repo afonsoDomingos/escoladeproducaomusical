@@ -41,6 +41,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     approvePayment, 
     rejectPayment,
     addCourse,
+    updateCourse,
     deleteCourse,
     addModuleToCourse,
     deleteModuleFromCourse,
@@ -48,17 +49,22 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     deleteLessonFromModule,
     updateLessonInModule,
     addStudent,
+    updateStudent,
     deleteStudent,
     addBeat,
+    updateBeat,
     deleteBeat,
     addPlugin,
+    updatePlugin,
     deletePlugin,
     addLiveClass,
+    updateLiveClass,
     deleteLiveClass,
     generateCertificate,
     updateMasterRequestStatus,
     showToast
   } = useDatabase();
+
 
 
 
@@ -181,6 +187,48 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     platform: 'Google Meet',
     description: ''
   });
+
+  // Edit Modals States & Handlers
+  const [editingCourseData, setEditingCourseData] = useState(null);
+  const handleUpdateCourse = (e) => {
+    e.preventDefault();
+    if (!editingCourseData || !editingCourseData.title) return;
+    updateCourse(editingCourseData.id, editingCourseData);
+    setEditingCourseData(null);
+  };
+
+  const [editingBeatData, setEditingBeatData] = useState(null);
+  const handleUpdateBeat = (e) => {
+    e.preventDefault();
+    if (!editingBeatData || !editingBeatData.title) return;
+    updateBeat(editingBeatData.id, editingBeatData);
+    setEditingBeatData(null);
+  };
+
+  const [editingPluginData, setEditingPluginData] = useState(null);
+  const handleUpdatePlugin = (e) => {
+    e.preventDefault();
+    if (!editingPluginData || !editingPluginData.name) return;
+    updatePlugin(editingPluginData.id, editingPluginData);
+    setEditingPluginData(null);
+  };
+
+  const [editingLiveData, setEditingLiveData] = useState(null);
+  const handleUpdateLive = (e) => {
+    e.preventDefault();
+    if (!editingLiveData || !editingLiveData.title) return;
+    updateLiveClass(editingLiveData.id, editingLiveData);
+    setEditingLiveData(null);
+  };
+
+  const [editingStudentData, setEditingStudentData] = useState(null);
+  const handleUpdateStudent = (e) => {
+    e.preventDefault();
+    if (!editingStudentData || !editingStudentData.name) return;
+    updateStudent(editingStudentData.id, editingStudentData);
+    setEditingStudentData(null);
+  };
+
 
   // Calculations for stats
   const totalRevenueMT = payments
@@ -740,6 +788,15 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                               )}
 
                               <button
+                                onClick={() => setEditingStudentData({ ...std })}
+                                className="btn btn-sm btn-secondary"
+                                style={{ padding: '3px 6px' }}
+                                title="Editar Dados do Aluno"
+                              >
+                                <Pencil size={12} />
+                              </button>
+
+                              <button
                                 onClick={() => {
                                   if (confirm(`Tem certeza que deseja remover o usuário ${std.name}?`)) {
                                     deleteStudent(std.id);
@@ -822,6 +879,13 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                           className="btn btn-primary btn-sm"
                         >
                           <Plus size={12} /> + Adicionar Aula
+                        </button>
+                        <button
+                          onClick={() => setEditingCourseData({ ...course })}
+                          className="btn btn-secondary btn-sm"
+                          title="Editar informações do curso"
+                        >
+                          <Pencil size={12} /> Editar Curso
                         </button>
                         <button
                           onClick={() => {
@@ -937,7 +1001,10 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                       <p style={{ fontSize: '0.78rem', color: '#666666', marginBottom: '10px' }}>{plg.description}</p>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', borderTop: '1px solid #E5E5E5', paddingTop: '10px' }}>
+                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end', borderTop: '1px solid #E5E5E5', paddingTop: '10px' }}>
+                      <button onClick={() => setEditingPluginData({ ...plg })} className="btn btn-secondary btn-sm" style={{ padding: '3px 8px', fontSize: '0.72rem' }}>
+                        <Pencil size={12} /> Editar
+                      </button>
                       <button onClick={() => deletePlugin(plg.id)} className="btn btn-secondary btn-sm" style={{ color: '#DC2626', padding: '3px 8px', fontSize: '0.72rem' }}>
                         <Trash2 size={12} /> Excluir
                       </button>
@@ -972,9 +1039,14 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                       <div style={{ fontSize: '0.78rem', color: '#666666' }}>Link: {live.meetingUrl}</div>
                     </div>
 
-                    <button onClick={() => deleteLiveClass(live.id)} className="btn btn-secondary btn-sm" style={{ color: '#DC2626' }}>
-                      <Trash2 size={12} /> Cancelar
-                    </button>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      <button onClick={() => setEditingLiveData({ ...live })} className="btn btn-secondary btn-sm" title="Editar Sessão">
+                        <Pencil size={12} /> Editar
+                      </button>
+                      <button onClick={() => deleteLiveClass(live.id)} className="btn btn-secondary btn-sm" style={{ color: '#DC2626' }}>
+                        <Trash2 size={12} /> Cancelar
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1122,13 +1194,23 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       {beat.isFeatured && <span className="badge badge-green" style={{ fontSize: '0.65rem' }}>★ Destaque</span>}
                       {!beat.isFeatured && <span />}
-                      <button
-                        onClick={() => deleteBeat(beat.id)}
-                        className="btn btn-sm btn-secondary"
-                        style={{ color: '#DC2626', fontSize: '0.75rem', padding: '4px 10px' }}
-                      >
-                        <Trash2 size={12} /> Remover
-                      </button>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button
+                          onClick={() => setEditingBeatData({ ...beat })}
+                          className="btn btn-sm btn-secondary"
+                          style={{ fontSize: '0.75rem', padding: '4px 10px' }}
+                          title="Editar Beat"
+                        >
+                          <Pencil size={12} /> Editar
+                        </button>
+                        <button
+                          onClick={() => deleteBeat(beat.id)}
+                          className="btn btn-sm btn-secondary"
+                          style={{ color: '#DC2626', fontSize: '0.75rem', padding: '4px 10px' }}
+                        >
+                          <Trash2 size={12} /> Remover
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1485,6 +1567,208 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
               <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
                 <Music size={14} /> Publicar Beat na Loja
               </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL: EDITAR CURSO ===== */}
+      {editingCourseData && (
+        <div className="modal-overlay" onClick={() => setEditingCourseData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Curso</h3>
+              <button onClick={() => setEditingCourseData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleUpdateCourse}>
+              <div className="form-group">
+                <label className="form-label">Título do Curso *</label>
+                <input type="text" value={editingCourseData.title} onChange={(e) => setEditingCourseData({ ...editingCourseData, title: e.target.value })} className="form-input" required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Descrição Curta</label>
+                <textarea value={editingCourseData.shortDescription || ''} onChange={(e) => setEditingCourseData({ ...editingCourseData, shortDescription: e.target.value })} className="form-input" rows={2} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="form-group">
+                  <label className="form-label">Preço (MT)</label>
+                  <input type="number" value={editingCourseData.price || 1500} onChange={(e) => setEditingCourseData({ ...editingCourseData, price: Number(e.target.value) })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Nível</label>
+                  <select value={editingCourseData.level || 'Iniciante'} onChange={(e) => setEditingCourseData({ ...editingCourseData, level: e.target.value })} className="form-select">
+                    <option>Iniciante</option>
+                    <option>Intermédio</option>
+                    <option>Intermediário ao Avançado</option>
+                    <option>Avançado</option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="form-label">URL da Thumbnail (Capa)</label>
+                <input type="url" value={editingCourseData.thumbnail || ''} onChange={(e) => setEditingCourseData({ ...editingCourseData, thumbnail: e.target.value })} className="form-input" />
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações do Curso</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL: EDITAR BEAT ===== */}
+      {editingBeatData && (
+        <div className="modal-overlay" onClick={() => setEditingBeatData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Beat</h3>
+              <button onClick={() => setEditingBeatData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleUpdateBeat}>
+              <div className="form-group">
+                <label className="form-label">Título do Beat *</label>
+                <input type="text" value={editingBeatData.title} onChange={(e) => setEditingBeatData({ ...editingBeatData, title: e.target.value })} className="form-input" required />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="form-group">
+                  <label className="form-label">Género</label>
+                  <input type="text" value={editingBeatData.genre} onChange={(e) => setEditingBeatData({ ...editingBeatData, genre: e.target.value })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">BPM</label>
+                  <input type="number" value={editingBeatData.bpm} onChange={(e) => setEditingBeatData({ ...editingBeatData, bpm: Number(e.target.value) })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Preço Lease (MT)</label>
+                  <input type="number" value={editingBeatData.priceStandard} onChange={(e) => setEditingBeatData({ ...editingBeatData, priceStandard: Number(e.target.value) })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Preço Exclusiva (MT)</label>
+                  <input type="number" value={editingBeatData.priceExclusive} onChange={(e) => setEditingBeatData({ ...editingBeatData, priceExclusive: Number(e.target.value) })} className="form-input" />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input type="checkbox" checked={editingBeatData.isFeatured || false} onChange={(e) => setEditingBeatData({ ...editingBeatData, isFeatured: e.target.checked })} />
+                  Destaque na Loja (★)
+                </label>
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações do Beat</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL: EDITAR PLUGIN ===== */}
+      {editingPluginData && (
+        <div className="modal-overlay" onClick={() => setEditingPluginData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Plugin</h3>
+              <button onClick={() => setEditingPluginData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleUpdatePlugin}>
+              <div className="form-group">
+                <label className="form-label">Nome do Plugin *</label>
+                <input type="text" value={editingPluginData.name} onChange={(e) => setEditingPluginData({ ...editingPluginData, name: e.target.value })} className="form-input" required />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="form-group">
+                  <label className="form-label">Categoria</label>
+                  <input type="text" value={editingPluginData.category} onChange={(e) => setEditingPluginData({ ...editingPluginData, category: e.target.value })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Tipo</label>
+                  <select value={editingPluginData.type} onChange={(e) => setEditingPluginData({ ...editingPluginData, type: e.target.value })} className="form-select">
+                    <option>Gratuito</option>
+                    <option>Pago</option>
+                    <option>Exclusivo Escola</option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Descrição</label>
+                <textarea value={editingPluginData.description || ''} onChange={(e) => setEditingPluginData({ ...editingPluginData, description: e.target.value })} className="form-input" rows={2} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">URL de Download</label>
+                <input type="url" value={editingPluginData.downloadUrl || ''} onChange={(e) => setEditingPluginData({ ...editingPluginData, downloadUrl: e.target.value })} className="form-input" />
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações do Plugin</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL: EDITAR AULA AO VIVO ===== */}
+      {editingLiveData && (
+        <div className="modal-overlay" onClick={() => setEditingLiveData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Aula ao Vivo</h3>
+              <button onClick={() => setEditingLiveData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleUpdateLive}>
+              <div className="form-group">
+                <label className="form-label">Título da Sessão *</label>
+                <input type="text" value={editingLiveData.title} onChange={(e) => setEditingLiveData({ ...editingLiveData, title: e.target.value })} className="form-input" required />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="form-group">
+                  <label className="form-label">Data</label>
+                  <input type="date" value={editingLiveData.date} onChange={(e) => setEditingLiveData({ ...editingLiveData, date: e.target.value })} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Horário</label>
+                  <input type="text" value={editingLiveData.time} onChange={(e) => setEditingLiveData({ ...editingLiveData, time: e.target.value })} className="form-input" placeholder="19:00 (GMT+2)" />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Link da Reunião</label>
+                <input type="url" value={editingLiveData.meetingUrl} onChange={(e) => setEditingLiveData({ ...editingLiveData, meetingUrl: e.target.value })} className="form-input" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Plataforma</label>
+                <select value={editingLiveData.platform} onChange={(e) => setEditingLiveData({ ...editingLiveData, platform: e.target.value })} className="form-select">
+                  <option>Google Meet</option>
+                  <option>Zoom</option>
+                  <option>Microsoft Teams</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações da Sessão</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL: EDITAR ALUNO ===== */}
+      {editingStudentData && (
+        <div className="modal-overlay" onClick={() => setEditingStudentData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '480px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Aluno</h3>
+              <button onClick={() => setEditingStudentData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleUpdateStudent}>
+              <div className="form-group">
+                <label className="form-label">Nome Completo *</label>
+                <input type="text" value={editingStudentData.name} onChange={(e) => setEditingStudentData({ ...editingStudentData, name: e.target.value })} className="form-input" required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Email *</label>
+                <input type="email" value={editingStudentData.email} onChange={(e) => setEditingStudentData({ ...editingStudentData, email: e.target.value })} className="form-input" required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Telefone / WhatsApp</label>
+                <input type="tel" value={editingStudentData.phone || ''} onChange={(e) => setEditingStudentData({ ...editingStudentData, phone: e.target.value })} className="form-input" placeholder="+258 84..." />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Status de Inscrição</label>
+                <select value={editingStudentData.enrollmentStatus} onChange={(e) => setEditingStudentData({ ...editingStudentData, enrollmentStatus: e.target.value })} className="form-select">
+                  <option value="approved">Aprovado (Acesso Premium)</option>
+                  <option value="pending">Pendente de Comprovativo</option>
+                  <option value="none">Não Inscrito</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações do Aluno</button>
             </form>
           </div>
         </div>

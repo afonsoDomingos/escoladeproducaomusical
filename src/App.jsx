@@ -81,7 +81,8 @@ const MainApp = () => {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       
       {/* SIMULADOR DE ACESSO DISCRETO NO TOPO */}
-      <RoleSwitcher />
+      <RoleSwitcher setActivePage={setActivePage} />
+
 
       {/* GLOBAL LAYOUT: SIDEBAR + MAIN CONTENT */}
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }} className="app-layout">

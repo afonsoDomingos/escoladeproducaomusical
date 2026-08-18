@@ -302,28 +302,71 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
 
           {/* USER PROFILE INFO OR LOGIN */}
           {currentUser ? (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px', backgroundColor: '#F8F8F8', borderRadius: '4px', border: '1px solid #E5E5E5' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
-                <div style={{ width: '26px', height: '26px', borderRadius: '3px', backgroundColor: '#000000', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800 }}>
-                  {currentUser.name.charAt(0).toUpperCase()}
-                </div>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {currentUser.name.split(' ')[0]}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 8px', backgroundColor: '#F8F8F8', borderRadius: '4px', border: '1px solid #E5E5E5', marginBottom: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                  <div style={{ width: '26px', height: '26px', borderRadius: '3px', backgroundColor: '#000000', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800 }}>
+                    {currentUser.name.charAt(0).toUpperCase()}
                   </div>
-                  <div style={{ fontSize: '0.65rem', color: '#666666' }}>
-                    {currentUser.role === 'admin' ? 'Admin' : currentUser.enrollmentStatus === 'approved' ? 'Aluno Pago' : 'Pendente'}
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {currentUser.name.split(' ')[0]}
+                    </div>
+                    <div style={{ fontSize: '0.65rem', color: '#666666' }}>
+                      {currentUser.role === 'admin' ? '👑 Admin' : '🎓 Aluno Aprovado'}
+                    </div>
                   </div>
                 </div>
+
+                <button
+                  onClick={() => { logout(); setActivePage('home'); }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#DC2626', padding: '4px' }}
+                  title="Sair da Conta"
+                >
+                  <LogOut size={14} />
+                </button>
               </div>
 
-              <button
-                onClick={() => { logout(); setActivePage('home'); }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#DC2626', padding: '4px' }}
-                title="Sair"
-              >
-                <LogOut size={14} />
-              </button>
+              {/* ATALHOS RÁPIDOS DIRETO NA SIDEBAR */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+                <button
+                  onClick={() => {
+                    handleNavClick('admin');
+                  }}
+                  style={{
+                    padding: '3px 4px',
+                    fontSize: '0.68rem',
+                    borderRadius: '3px',
+                    border: '1px solid #E5E5E5',
+                    backgroundColor: currentUser.role === 'admin' ? '#000000' : '#FFFFFF',
+                    color: currentUser.role === 'admin' ? '#FFFFFF' : '#333333',
+                    cursor: 'pointer',
+                    fontWeight: 700
+                  }}
+                  title="Mudar para Silva (Admin)"
+                >
+                  👑 Silva Admin
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleNavClick('dashboard');
+                  }}
+                  style={{
+                    padding: '3px 4px',
+                    fontSize: '0.68rem',
+                    borderRadius: '3px',
+                    border: '1px solid #E5E5E5',
+                    backgroundColor: currentUser.role === 'student' ? '#000000' : '#FFFFFF',
+                    color: currentUser.role === 'student' ? '#FFFFFF' : '#333333',
+                    cursor: 'pointer',
+                    fontWeight: 700
+                  }}
+                  title="Mudar para Afonso (Aluno)"
+                >
+                  🎓 Afonso Aluno
+                </button>
+              </div>
             </div>
           ) : (
             <button
@@ -334,9 +377,9 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
               <User size={14} /> Entrar na Conta
             </button>
           )}
-
         </div>
       </aside>
     </>
   );
 };
+

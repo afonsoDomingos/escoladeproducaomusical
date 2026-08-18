@@ -1,90 +1,112 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Shield, CheckCircle, Clock, UserX } from 'lucide-react';
+import { Shield, CheckCircle, UserX, Sparkles } from 'lucide-react';
 
-export const RoleSwitcher = () => {
+export const RoleSwitcher = ({ setActivePage }) => {
   const { currentUser, switchRole } = useAuth();
+
+  const handleSwitch = (role) => {
+    switchRole(role);
+    if (setActivePage) {
+      if (role === 'admin') setActivePage('admin');
+      else if (role === 'student_paid') setActivePage('dashboard');
+      else if (role === 'guest') setActivePage('home');
+    }
+  };
+
+  const isAdmin = currentUser?.role === 'admin';
+  const isStudent = currentUser?.role === 'student' && currentUser?.enrollmentStatus === 'approved';
+  const isGuest = !currentUser;
 
   return (
     <div
       style={{
-        backgroundColor: '#0A0A0A',
+        backgroundColor: '#09090B',
         color: '#FFFFFF',
-        padding: '5px 16px',
-        fontSize: '0.76rem',
+        padding: '6px 16px',
+        fontSize: '0.78rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        gap: '8px',
-        zIndex: 1000,
-        borderBottom: '1px solid #262626'
+        gap: '10px',
+        zIndex: 9999,
+        borderBottom: '1px solid #27272A',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.3)'
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        <span style={{ color: '#888888' }}>Simulador de Acesso:</span>
-        <span style={{ fontWeight: 600 }}>
-          {currentUser ? `${currentUser.name} (${currentUser.role === 'admin' ? 'Admin' : currentUser.enrollmentStatus === 'approved' ? 'Aluno Pago' : 'Pendente'})` : 'Visitante'}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#A1A1AA', fontSize: '0.74rem', fontFamily: 'var(--font-mono)' }}>
+          <Sparkles size={12} color="#F59E0B" /> MODO DE TESTES / DEV:
+        </span>
+        <span style={{ fontWeight: 700, color: '#FAFAFA' }}>
+          {isAdmin && '👑 Silva Jermane (Administrador)'}
+          {isStudent && '🎓 Afonso Domingos (Aluno Matriculado)'}
+          {isGuest && '👤 Visitante (Não Autenticado)'}
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+        <span style={{ fontSize: '0.72rem', color: '#71717A', marginRight: '2px' }}>Alternar para:</span>
+
+        {/* BOTAO ADMIN */}
         <button
-          onClick={() => switchRole('admin')}
+          onClick={() => handleSwitch('admin')}
           className="btn btn-sm"
           style={{
-            padding: '2px 8px',
-            fontSize: '0.72rem',
-            backgroundColor: currentUser?.role === 'admin' ? '#FFFFFF' : '#1A1A1A',
-            color: currentUser?.role === 'admin' ? '#000000' : '#CCCCCC',
-            border: '1px solid #333333'
+            padding: '3px 10px',
+            fontSize: '0.74rem',
+            backgroundColor: isAdmin ? '#FFFFFF' : '#18181B',
+            color: isAdmin ? '#09090B' : '#D4D4D8',
+            border: isAdmin ? '1px solid #FFFFFF' : '1px solid #3F3F46',
+            fontWeight: isAdmin ? 800 : 500,
+            borderRadius: '4px',
+            cursor: 'pointer'
           }}
+          title="Entrar como Administrador e abrir painel de gestão"
         >
-          <Shield size={11} /> Admin (Silva)
+          <Shield size={12} /> 👑 Admin (Silva)
         </button>
 
+        {/* BOTAO ALUNO */}
         <button
-          onClick={() => switchRole('student_paid')}
+          onClick={() => handleSwitch('student_paid')}
           className="btn btn-sm"
           style={{
-            padding: '2px 8px',
-            fontSize: '0.72rem',
-            backgroundColor: currentUser?.role === 'student' && currentUser?.enrollmentStatus === 'approved' ? '#FFFFFF' : '#1A1A1A',
-            color: currentUser?.enrollmentStatus === 'approved' ? '#000000' : '#CCCCCC',
-            border: '1px solid #333333'
+            padding: '3px 10px',
+            fontSize: '0.74rem',
+            backgroundColor: isStudent ? '#FFFFFF' : '#18181B',
+            color: isStudent ? '#09090B' : '#D4D4D8',
+            border: isStudent ? '1px solid #FFFFFF' : '1px solid #3F3F46',
+            fontWeight: isStudent ? 800 : 500,
+            borderRadius: '4px',
+            cursor: 'pointer'
           }}
+          title="Entrar como Aluno Aprovado e abrir sala de aulas"
         >
-          <CheckCircle size={11} /> Aluno Pago
+          <CheckCircle size={12} /> 🎓 Aluno (Afonso)
         </button>
 
+        {/* BOTAO VISITANTE */}
         <button
-          onClick={() => switchRole('student_pending')}
+          onClick={() => handleSwitch('guest')}
           className="btn btn-sm"
           style={{
-            padding: '2px 8px',
-            fontSize: '0.72rem',
-            backgroundColor: currentUser?.role === 'student' && currentUser?.enrollmentStatus === 'pending' ? '#FFFFFF' : '#1A1A1A',
-            color: currentUser?.enrollmentStatus === 'pending' ? '#000000' : '#CCCCCC',
-            border: '1px solid #333333'
+            padding: '3px 10px',
+            fontSize: '0.74rem',
+            backgroundColor: isGuest ? '#FFFFFF' : '#18181B',
+            color: isGuest ? '#09090B' : '#A1A1AA',
+            border: isGuest ? '1px solid #FFFFFF' : '1px solid #27272A',
+            fontWeight: isGuest ? 800 : 500,
+            borderRadius: '4px',
+            cursor: 'pointer'
           }}
+          title="Deslogar e ver como visitante"
         >
-          <Clock size={11} /> Aluno Pendente
-        </button>
-
-        <button
-          onClick={() => switchRole('guest')}
-          className="btn btn-sm"
-          style={{
-            padding: '2px 8px',
-            fontSize: '0.72rem',
-            backgroundColor: !currentUser ? '#FFFFFF' : '#1A1A1A',
-            color: !currentUser ? '#000000' : '#CCCCCC',
-            border: '1px solid #333333'
-          }}
-        >
-          <UserX size={11} /> Visitante
+          <UserX size={12} /> 👤 Visitante
         </button>
       </div>
     </div>
   );
 };
+

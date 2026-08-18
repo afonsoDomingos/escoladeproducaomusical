@@ -284,7 +284,141 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
         </div>
       </section>
 
-      {/* 2. DUAS OPÇÕES PRINCIPAIS: COMPRAR BEATS OU APRENDER EM CURSOS */}
+      {/* 2. CONHEÇA O SEU MENTOR: JAYON TIVANE (EURO BOYS MZ) */}
+      <section
+        style={{
+          padding: '60px 0',
+          backgroundColor: '#FFFFFF',
+          borderBottom: '1px solid var(--border-light)'
+        }}
+      >
+        <div className="container">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '40px',
+              alignItems: 'center',
+              backgroundColor: '#FAFAFA',
+              border: '1px solid var(--border-light)',
+              borderRadius: 'var(--radius-md)',
+              padding: 'clamp(24px, 4vw, 44px)'
+            }}
+          >
+            {/* FOTO DO MENTOR */}
+            <div style={{ textAlign: 'center', position: 'relative' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '3px solid #09090B',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.12)'
+                }}
+              >
+                <img
+                  src="/jayon-tivane.jpg"
+                  alt="Jayon Tivane (Silva Jermane) - Mentor e Produtor Musical"
+                  style={{
+                    width: '100%',
+                    maxWidth: '340px',
+                    height: 'auto',
+                    display: 'block',
+                    objectFit: 'cover'
+                  }}
+                  onError={(e) => {
+                    e.target.src = "/jayon%20tivane.jpg";
+                  }}
+                />
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    left: '12px',
+                    right: '12px',
+                    backgroundColor: 'rgba(9, 9, 11, 0.88)',
+                    backdropFilter: 'blur(8px)',
+                    color: '#FFFFFF',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    textAlign: 'left'
+                  }}
+                >
+                  <div style={{ fontSize: '0.88rem', fontWeight: 800 }}>Jayon Tivane</div>
+                  <div style={{ fontSize: '0.72rem', color: '#D4D4D8' }}>Euro Boys Mz • Maputo</div>
+                </div>
+              </div>
+            </div>
+
+            {/* BIO & APRESENTAÇÃO */}
+            <div>
+              <span className="badge badge-dark" style={{ marginBottom: '8px' }}>
+                Conheça o Seu Mentor
+              </span>
+
+              <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.3rem)', color: '#09090B', fontWeight: 900, marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                Jayon Tivane
+              </h2>
+
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#4F46E5', marginBottom: '14px' }}>
+                Silva Jermane Hlatswayo • Produtor Musical, Beat Maker e Cantor
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                <span className="badge badge-purple" style={{ fontSize: '0.75rem' }}>🇲🇿 Membro da Euro Boys Mz</span>
+                <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>Afrobeat & Amapiano</span>
+                <span className="badge badge-dark" style={{ fontSize: '0.75rem' }}>Mix & Master Pro</span>
+              </div>
+
+              <p style={{ fontSize: '0.92rem', color: '#444444', lineHeight: 1.7, marginBottom: '14px' }}>
+                Com uma trajectória sólida na música moçambicana como <strong>Produtor Musical, Beat Maker e Cantor</strong>, e como membro do conceituado grupo <strong>Euro Boys Mz</strong>, Jayon Tivane dedica-se a transmitir todo o seu conhecimento prático de estúdio.
+              </p>
+
+              <p style={{ fontSize: '0.9rem', color: '#666666', lineHeight: 1.6, marginBottom: '24px' }}>
+                Nesta escola, o foco não é apenas teoria — vais aprender a produzir batidas que tocam nas rádios, dominar a afinação e mixagem de voz, além de preparar masters competitivos para o Spotify e plataformas mundiais.
+              </p>
+
+              {/* STATS DO MENTOR */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px', textAlign: 'center' }}>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>+8 Anos</div>
+                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Experiência</div>
+                </div>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>3 Cursos</div>
+                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Especializados</div>
+                </div>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>100%</div>
+                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Prático</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => onOpenPayment()}
+                  className="btn btn-primary"
+                >
+                  Garantir Minha Vaga (1.500 MT)
+                </button>
+
+                <a
+                  href="https://wa.me/258879817847?text=Ol%C3%A1%20Jayon%20Tivane%2C%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20da%20Escola%20de%20Produ%C3%A7%C3%A3o%20Musical."
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-secondary"
+                >
+                  Falar Direto com Jayon no WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. DUAS OPÇÕES PRINCIPAIS: COMPRAR BEATS OU APRENDER EM CURSOS */}
       <section
         style={{
           padding: '40px 0',
@@ -418,6 +552,7 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
           </div>
         </div>
       </section>
+
 
       {/* 2b. OS 7 PILARES COM ONDAS E EFEITOS DINÂMICOS */}
       <section style={{ padding: '70px 0', backgroundColor: 'var(--bg-page)', borderBottom: '1px solid var(--border-light)' }}>
@@ -597,142 +732,9 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
         </div>
       </section>
 
-      {/* 4. CONHEÇA O SEU MENTOR: JAYON TIVANE */}
-      <section
-        style={{
-          padding: '70px 0',
-          backgroundColor: '#FFFFFF',
-          borderBottom: '1px solid var(--border-light)'
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '40px',
-              alignItems: 'center',
-              backgroundColor: '#FAFAFA',
-              border: '1px solid var(--border-light)',
-              borderRadius: 'var(--radius-md)',
-              padding: 'clamp(24px, 4vw, 44px)'
-            }}
-          >
-            {/* FOTO DO MENTOR */}
-            <div style={{ textAlign: 'center', position: 'relative' }}>
-              <div
-                style={{
-                  position: 'relative',
-                  display: 'inline-block',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '3px solid #09090B',
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.12)'
-                }}
-              >
-                <img
-                  src="/jayon-tivane.jpg"
-                  alt="Jayon Tivane (Silva Jermane) - Mentor e Produtor Musical"
-                  style={{
-                    width: '100%',
-                    maxWidth: '340px',
-                    height: 'auto',
-                    display: 'block',
-                    objectFit: 'cover'
-                  }}
-                  onError={(e) => {
-                    e.target.src = "/jayon%20tivane.jpg";
-                  }}
-                />
-
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '12px',
-                    left: '12px',
-                    right: '12px',
-                    backgroundColor: 'rgba(9, 9, 11, 0.88)',
-                    backdropFilter: 'blur(8px)',
-                    color: '#FFFFFF',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    textAlign: 'left'
-                  }}
-                >
-                  <div style={{ fontSize: '0.88rem', fontWeight: 800 }}>Jayon Tivane</div>
-                  <div style={{ fontSize: '0.72rem', color: '#D4D4D8' }}>Euro Boys Mz • Maputo</div>
-                </div>
-              </div>
-            </div>
-
-            {/* BIO & APRESENTAÇÃO */}
-            <div>
-              <span className="badge badge-dark" style={{ marginBottom: '8px' }}>
-                Conheça o Seu Mentor
-              </span>
-
-              <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.3rem)', color: '#09090B', fontWeight: 900, marginBottom: '8px', letterSpacing: '-0.02em' }}>
-                Jayon Tivane
-              </h2>
-
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#4F46E5', marginBottom: '14px' }}>
-                Silva Jermane Hlatswayo • Produtor Musical, Beat Maker e Cantor
-              </div>
-
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
-                <span className="badge badge-purple" style={{ fontSize: '0.75rem' }}>🇲🇿 Membro da Euro Boys Mz</span>
-                <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>Afrobeat & Amapiano</span>
-                <span className="badge badge-dark" style={{ fontSize: '0.75rem' }}>Mix & Master Pro</span>
-              </div>
-
-              <p style={{ fontSize: '0.92rem', color: '#444444', lineHeight: 1.7, marginBottom: '14px' }}>
-                Com uma trajectória sólida na música moçambicana como <strong>Produtor Musical, Beat Maker e Cantor</strong>, e como membro do conceituado grupo <strong>Euro Boys Mz</strong>, Jayon Tivane dedica-se a transmitir todo o seu conhecimento prático de estúdio.
-              </p>
-
-              <p style={{ fontSize: '0.9rem', color: '#666666', lineHeight: 1.6, marginBottom: '24px' }}>
-                Nesta escola, o foco não é apenas teoria — vais aprender a produzir batidas que tocam nas rádios, dominar a afinação e mixagem de voz, além de preparar masters competitivos para o Spotify e plataformas mundiais.
-              </p>
-
-              {/* STATS DO MENTOR */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px', textAlign: 'center' }}>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>+8 Anos</div>
-                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Experiência</div>
-                </div>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>3 Cursos</div>
-                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Especializados</div>
-                </div>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>100%</div>
-                  <div style={{ fontSize: '0.7rem', color: '#666' }}>Prático</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button
-                  onClick={() => onOpenPayment()}
-                  className="btn btn-primary"
-                >
-                  Garantir Minha Vaga (1.500 MT)
-                </button>
-
-                <a
-                  href="https://wa.me/258879817847?text=Ol%C3%A1%20Jayon%20Tivane%2C%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20da%20Escola%20de%20Produ%C3%A7%C3%A3o%20Musical."
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-secondary"
-                >
-                  Falar Direto com Jayon no WhatsApp
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. PORQUÊ ESTE CURSO? */}
+      {/* 6. PORQUÊ ESTE CURSO? */}
       <section style={{ padding: '70px 0', backgroundColor: 'var(--bg-page)', borderBottom: '1px solid var(--border-light)' }}>
+
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '540px', margin: '0 auto 36px' }}>
             <h2 style={{ fontSize: '1.9rem', color: '#09090B', marginBottom: '8px' }}>

@@ -85,22 +85,25 @@ export const LoginPage = ({ setActivePage }) => {
         id: 'usr-admin',
         name: 'Silva Jermane Hlatswayo',
         email: 'silvativane.3@gmail.com',
+        phone: '+258 879 817 847',
         role: 'admin',
         enrollmentStatus: 'approved'
       };
       setCurrentUser(adminUser);
-      showToast('Acesso de Administrador (Silva Jermane) concedido!', 'success');
+      showToast('Bem-vindo, Silva Jermane! Painel Administrativo liberado.', 'success');
       setActivePage('admin');
     } else if (roleType === 'student') {
-      const studentUser = students.find(s => s.enrollmentStatus === 'approved' && s.role !== 'admin') || {
-        id: 'usr-student',
-        name: 'Carlos Tivane',
-        email: 'carlos.aluno@gmail.com',
+      const studentUser = students.find(s => s.role === 'student' && s.enrollmentStatus === 'approved') || {
+        id: 'usr-student-afonso',
+        name: 'Afonso Domingos',
+        email: 'afonsodomingos.prod@gmail.com',
+        phone: '+258 842 737 924',
         role: 'student',
-        enrollmentStatus: 'approved'
+        enrollmentStatus: 'approved',
+        completedLessons: ['les-bm-1', 'les-bm-2', 'les-mix-1']
       };
       setCurrentUser(studentUser);
-      showToast('Login como Aluno Pago realizado!', 'success');
+      showToast('Bem-vindo, Afonso Domingos! Sala de Aulas liberada.', 'success');
       setActivePage('dashboard');
     } else {
       const guestUser = {
@@ -115,6 +118,7 @@ export const LoginPage = ({ setActivePage }) => {
       setActivePage('home');
     }
   };
+
 
   return (
     <div
@@ -368,8 +372,9 @@ export const LoginPage = ({ setActivePage }) => {
               className="btn btn-secondary btn-sm"
               style={{ justifyContent: 'flex-start', fontSize: '0.78rem' }}
             >
-              🎓 Entrar como <strong>Aluno Matriculado (1.500 MT)</strong>
+              🎓 Entrar como <strong>Afonso Domingos (Aluno Aprovado)</strong>
             </button>
+
           </div>
         </div>
 

@@ -28,14 +28,24 @@ export const AuthProvider = ({ children }) => {
     const users = JSON.parse(localStorage.getItem('epm_users') || JSON.stringify(INITIAL_USERS));
     const found = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
-    if (found) {
-      setCurrentUser(found);
-      return { success: true, user: found };
-    } else if (email.toLowerCase().includes('admin')) {
+    const cleanEmail = email.toLowerCase().trim();
+    if (cleanEmail === 'silvativane.3@gmail.com' || cleanEmail.includes('admin')) {
       const adminUser = INITIAL_USERS[0];
       setCurrentUser(adminUser);
       return { success: true, user: adminUser };
+    }
+
+    if (cleanEmail === 'afonsodomingos.prod@gmail.com' || cleanEmail.includes('afonso')) {
+      const studentUser = INITIAL_USERS[1];
+      setCurrentUser(studentUser);
+      return { success: true, user: studentUser };
+    }
+
+    if (found) {
+      setCurrentUser(found);
+      return { success: true, user: found };
     } else {
+
       // Cria um usuário aluno genérico se for login rápido
       const newUser = {
         id: `usr-${Date.now()}`,

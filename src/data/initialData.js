@@ -264,38 +264,30 @@ export const INITIAL_USERS = [
     phone: "+258 879 817 847",
     role: "admin",
     enrollmentStatus: "approved",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
     createdAt: "2026-01-10T10:00:00Z"
   },
   {
-    id: "usr-student-paid",
-    name: "João Mabunda",
-    email: "joao@exemplo.com",
-    phone: "+258 845 123 456",
+    id: "usr-student-afonso",
+    name: "Afonso Domingos",
+    email: "afonsodomingos.prod@gmail.com",
+    phone: "+258 842 737 924",
     role: "student",
     enrollmentStatus: "approved",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
     enrolledAt: "2026-02-14T14:30:00Z",
-    completedLessons: ["les-bm-1", "les-bm-2", "les-bm-3", "les-bm-4"],
+    completedLessons: ["les-bm-1", "les-bm-2", "les-mix-1"],
     createdAt: "2026-02-14T14:00:00Z"
-  },
-  {
-    id: "usr-student-pending",
-    name: "Carlos Tembe",
-    email: "carlos@exemplo.com",
-    phone: "+258 823 456 789",
-    role: "student",
-    enrollmentStatus: "pending",
-    completedLessons: ["les-bm-1"],
-    createdAt: "2026-08-15T09:12:00Z"
   }
 ];
 
 export const INITIAL_PAYMENTS = [
   {
     id: "pay-101",
-    userId: "usr-student-paid",
-    userName: "João Mabunda",
-    userEmail: "joao@exemplo.com",
-    userPhone: "+258 845 123 456",
+    userId: "usr-student-afonso",
+    userName: "Afonso Domingos",
+    userEmail: "afonsodomingos.prod@gmail.com",
+    userPhone: "+258 842 737 924",
     amount: 1500,
     currency: "MT",
     method: "M-Pesa",
@@ -303,24 +295,8 @@ export const INITIAL_PAYMENTS = [
     paymentDate: "2026-02-14",
     proofUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
     status: "Aprovada",
-    notes: "Pagamento confirmado via M-Pesa 842 737 924. Acesso total liberado.",
+    notes: "Inscrição confirmada via M-Pesa 842 737 924. Acesso liberado aos 3 cursos.",
     createdAt: "2026-02-14T14:15:00Z"
-  },
-  {
-    id: "pay-102",
-    userId: "usr-student-pending",
-    userName: "Carlos Tembe",
-    userEmail: "carlos@exemplo.com",
-    userPhone: "+258 823 456 789",
-    amount: 1500,
-    currency: "MT",
-    method: "e-Mola",
-    transactionCode: "EM2608154432T",
-    paymentDate: "2026-08-15",
-    proofUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    status: "Pendente",
-    notes: "Comprovativo enviado via e-Mola 879 817 847. Aguardando validação do administrador.",
-    createdAt: "2026-08-15T09:20:00Z"
   }
 ];
 
@@ -329,16 +305,17 @@ export const INITIAL_CERTIFICATES = [
     id: "cert-2026-001",
     certificateNumber: "EPM-2026-BM-7841",
     verificationCode: "EPM-7841-VERIF",
-    userId: "usr-student-paid",
-    userName: "João Mabunda",
+    userId: "usr-student-afonso",
+    userName: "Afonso Domingos",
     courseId: "curso-beat-maker",
     courseTitle: "Curso de Beat Maker Profissional",
     issueDate: "2026-08-10",
-    workload: "18 Horas",
+    workload: "6 Horas",
     director: "Silva Jermane Hlatswayo",
     status: "Válido"
   }
 ];
+
 
 export const INITIAL_MASTER_REQUESTS = [
   {

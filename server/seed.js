@@ -104,8 +104,18 @@ const USERS = [
     role: 'admin',
     enrollmentStatus: 'approved',
     enrolledCourses: [],
+  },
+  {
+    name: 'Afonso Domingos',
+    email: 'afonsodomingos.prod@gmail.com',
+    phone: '+258 842 737 924',
+    role: 'student',
+    enrollmentStatus: 'approved',
+    enrolledCourses: ['curso-beat-maker', 'curso-mixagem', 'curso-masterizacao'],
+    completedLessons: ['les-bm-1', 'les-bm-2', 'les-mix-1']
   }
 ];
+
 
 const PLUGINS = [
   { name: 'Serum',           description: 'Sintetizador wavetable líder da indústria', category: 'Sintetizador',  version: '1.37b4', isFree: false, downloadUrl: 'https://xferrecords.com/products/serum',   tags: ['Wavetable','Leads','Pads'] },

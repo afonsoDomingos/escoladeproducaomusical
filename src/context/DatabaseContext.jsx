@@ -251,6 +251,26 @@ export const DatabaseProvider = ({ children }) => {
     showToast("Aula excluída com sucesso!", "info");
   };
 
+  const updateLessonInModule = (courseId, moduleId, lessonId, updatedLessonData) => {
+    setCourses(prev => prev.map(c => {
+      if (c.id === courseId) {
+        const updatedModules = c.modules.map(m => {
+          if (m.id === moduleId) {
+            return {
+              ...m,
+              lessons: m.lessons.map(l => l.id === lessonId ? { ...l, ...updatedLessonData } : l)
+            };
+          }
+          return m;
+        });
+        return { ...c, modules: updatedModules };
+      }
+      return c;
+    }));
+    showToast("Aula atualizada com sucesso!", "success");
+  };
+
+
   // ================= STUDENTS & USERS CRUD =================
   const addStudent = (studentData) => {
     const newStudent = {
@@ -415,6 +435,7 @@ export const DatabaseProvider = ({ children }) => {
         deleteModuleFromCourse,
         addLessonToModule,
         deleteLessonFromModule,
+        updateLessonInModule,
         addStudent,
         updateStudent,
         deleteStudent,

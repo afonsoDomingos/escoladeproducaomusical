@@ -25,57 +25,76 @@ const BEATS = [
 
 const COURSES = [
   {
-    title: 'Beat Making do Zero ao Avançado',
-    shortDescription: 'Aprenda a criar beats profissionais de Afrobeat, Trap, Amapiano e muito mais',
-    description: 'Curso completo de produção musical focado em beat making moderno para o mercado africano e internacional.',
+    title: 'Curso de Beat Maker Profissional',
+    shortDescription: 'Aprenda a criar beats profissionais de Afrobeat, Amapiano, Trap e Kizomba do zero ao nível comercial.',
+    description: 'Domine a arte da criação de beats do zero ao nível comercial com o mentor Silva Jermane.',
     thumbnail: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800',
-    instructor: 'Silva Jermane Hlatswayo',
+    instructor: 'Silva Jermane (Jayon Tivane)',
     instructorRole: 'Produtor Musical & Sound Engineer',
     instructorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
     level: 'Iniciante ao Avançado',
-    duration: '20 Horas • 24 Aulas',
+    duration: '6 Horas • 3 Aulas',
     price: 1500,
     modules: [
-      { id: 'mod-1', title: 'Introdução à Produção Musical', lessons: [
-        { id: 'les-1', title: 'Bem-vindo ao Curso', duration: '15 min', isFree: true, videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', description: 'Visão geral do que vai aprender neste curso.' },
-        { id: 'les-2', title: 'Instalação do FL Studio', duration: '20 min', isFree: true, videoUrl: '', description: 'Como instalar e configurar o FL Studio 21.' },
-        { id: 'les-3', title: 'Interface e Navegação', duration: '25 min', isFree: false, videoUrl: '', description: 'Conhece todos os painéis e ferramentas do FL Studio.' },
-      ]},
-      { id: 'mod-2', title: 'Criação de Batidas (Drums)', lessons: [
-        { id: 'les-4', title: 'Programação de Kick e Snare', duration: '30 min', isFree: false, videoUrl: '', description: 'Aprende a programar o padrão rítmico base.' },
-        { id: 'les-5', title: 'Hi-Hats e Percussões', duration: '25 min', isFree: false, videoUrl: '', description: 'Variações e fills de percussão.' },
-        { id: 'les-6', title: 'Groove e Swing Afrobeat', duration: '35 min', isFree: false, videoUrl: '', description: 'Como dar o groove característico do Afrobeat.' },
-      ]},
-      { id: 'mod-3', title: 'Melodias e Instrumentação', lessons: [
-        { id: 'les-7', title: 'Piano Roll — Criar Melodias', duration: '40 min', isFree: false, videoUrl: '', description: 'Usa o piano roll para criar linhas melódicas.' },
-        { id: 'les-8', title: 'Escolha de Sons e VSTs', duration: '30 min', isFree: false, videoUrl: '', description: 'Os melhores VSTs para produção africana.' },
-      ]},
+      {
+        id: 'mod-bm-1',
+        title: 'Módulo Principal — Criação de Beats & Bateria',
+        lessons: [
+          { id: 'les-bm-1', title: 'Aula 1: Introdução ao Beat Making & Setup do Estúdio', duration: '25:00', isFree: true, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', description: 'Pilares essenciais da produção de beats, escolha de plugins e configuração da DAW.' },
+          { id: 'les-bm-2', title: 'Aula 2: Bateria, Percussão & Groove Afrobeat / Amapiano', duration: '35:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', description: 'Programação de kicks potentes, claps, shakers e log drums com swing e dinâmica.' },
+          { id: 'les-bm-3', title: 'Aula 3: Harmonia, Melodias, 808s e Arranjo Final', duration: '40:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', description: 'Criação de progressões de acordes, afinação e slides de 808 e estruturação para venda.' }
+        ]
+      }
     ]
   },
   {
-    title: 'Mixagem e Masterização Profissional',
-    shortDescription: 'Domine as técnicas de mixagem e masterização para rádio, streaming e lançamentos físicos',
-    description: 'Aprende os segredos para fazer as tuas músicas soarem como produções internacionais.',
-    thumbnail: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=800',
+    title: 'Curso de Mixagem de Áudio & Voz',
+    shortDescription: 'Domine as técnicas de equalização, compressão, saturação e espacialidade para vozes e instrumentais.',
+    description: 'Aprenda a fazer mixagens limpas, com clareza e impacto que soam equilibradas em qualquer sistema de som.',
+    thumbnail: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800',
     instructor: 'Silva Jermane Hlatswayo',
-    instructorRole: 'Produtor Musical & Sound Engineer',
+    instructorRole: 'Engenheiro de Som & Produtor Sênior',
     instructorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
-    level: 'Intermédio ao Avançado',
-    duration: '16 Horas • 20 Aulas',
+    level: 'Intermediário ao Avançado',
+    duration: '5 Horas • 3 Aulas',
     price: 1500,
     modules: [
-      { id: 'mod-a', title: 'Fundamentos de Mixagem', lessons: [
-        { id: 'les-a1', title: 'O que é mixagem?', duration: '20 min', isFree: true, videoUrl: '', description: 'Introdução ao processo de mixagem.' },
-        { id: 'les-a2', title: 'EQ e Filtros', duration: '40 min', isFree: false, videoUrl: '', description: 'Como usar o equalizador para separar os elementos da mix.' },
-        { id: 'les-a3', title: 'Compressão e Dinâmica', duration: '35 min', isFree: false, videoUrl: '', description: 'Compressores e limitadores para controlar o volume.' },
-      ]},
-      { id: 'mod-b', title: 'Masterização para Streaming', lessons: [
-        { id: 'les-b1', title: 'LUFS e Loudness', duration: '25 min', isFree: false, videoUrl: '', description: 'Padrões de volume do Spotify, Apple Music e YouTube.' },
-        { id: 'les-b2', title: 'Limiter e Clipper', duration: '30 min', isFree: false, videoUrl: '', description: 'Como maximizar o volume sem distorção.' },
-      ]},
+      {
+        id: 'mod-mix-1',
+        title: 'Módulo Principal — Mixagem Comercial de Voz e Beat',
+        lessons: [
+          { id: 'les-mix-1', title: 'Aula 1: Fundamentos de Mixagem, Ganho & Equilíbrio', duration: '20:00', isFree: true, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', description: 'Gain staging, organização de canais no mixer e equilíbrio de volumes estáticos.' },
+          { id: 'les-mix-2', title: 'Aula 2: Equalização (EQ) e Compressão Vocal e de Bateria', duration: '38:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', description: 'Corte de frequências indesejadas, controle dinâmico com compressores e de-esser.' },
+          { id: 'les-mix-3', title: 'Aula 3: Efeitos Espaciais (Reverb, Delay, Stereo Imaging)', duration: '30:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4', description: 'Criação de profundidade, ambiente 3D e largura estéreo sem perda de compatibilidade mono.' }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'Curso de Masterização Profissional',
+    shortDescription: 'Aprenda técnicas de masterização para preparar músicas com volume competitivo para streaming e rádios.',
+    description: 'Leve as suas faixas ao nível das grandes gravadoras internacionais. Loudness (LUFS), dynamic range e limiters.',
+    thumbnail: 'https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=800',
+    instructor: 'Silva Jermane Hlatswayo',
+    instructorRole: 'Engenheiro de Som & Produtor Sênior',
+    instructorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
+    level: 'Intermediário ao Avançado',
+    duration: '5 Horas • 3 Aulas',
+    price: 1500,
+    modules: [
+      {
+        id: 'mod-mst-1',
+        title: 'Módulo Principal — Masterização para Streaming & Rádios',
+        lessons: [
+          { id: 'les-mst-1', title: 'Aula 1: A Filosofia da Masterização & Loudness (LUFS)', duration: '22:00', isFree: true, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', description: 'Diferença entre Mix e Master, compreensão real de LUFS, Dynamic Range e True Peak.' },
+          { id: 'les-mst-2', title: 'Aula 2: Cadeia de Sinal (EQ Mid/Side, Saturação e Clipper)', duration: '32:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4', description: 'Tratamento cirúrgico de frequências, cola dinâmica e ganho analógico sem distorção.' },
+          { id: 'les-mst-3', title: 'Aula 3: O Limiter Final, Dithering e Exportação Comercial', duration: '28:00', isFree: false, videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4', description: 'Como alcançar -8 a -7 LUFS com clareza, dither e exportação de WAV 24-bit e MP3 320kbps.' }
+        ]
+      }
     ]
   }
 ];
+
 
 const USERS = [
   {

@@ -13,6 +13,7 @@ import {
   XCircle, 
   Plus, 
   Trash2, 
+  Edit,
   Eye, 
   Search, 
   ShieldCheck, 
@@ -45,6 +46,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     deleteModuleFromCourse,
     addLessonToModule,
     deleteLessonFromModule,
+    updateLessonInModule,
     addStudent,
     deleteStudent,
     addBeat,
@@ -57,6 +59,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     updateMasterRequestStatus,
     showToast
   } = useDatabase();
+
 
 
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'payments' | 'students' | 'courses' | 'plugins' | 'live' | 'master' | 'certificates' | 'beats'
@@ -131,6 +134,28 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     description: '',
     isFree: false
   });
+
+  // Edit Lesson Modal State
+  const [editingLessonData, setEditingLessonData] = useState(null); // { courseId, moduleId, lesson }
+
+  const handleUpdateLesson = (e) => {
+    e.preventDefault();
+    if (!editingLessonData || !editingLessonData.lesson.title) return;
+    updateLessonInModule(
+      editingLessonData.courseId,
+      editingLessonData.moduleId,
+      editingLessonData.lesson.id,
+      {
+        title: editingLessonData.lesson.title,
+        duration: editingLessonData.lesson.duration,
+        videoUrl: editingLessonData.lesson.videoUrl,
+        description: editingLessonData.lesson.description,
+        isFree: editingLessonData.lesson.isFree
+      }
+    );
+    setEditingLessonData(null);
+  };
+
 
   // New Plugin Modal State
   const [showPluginModal, setShowPluginModal] = useState(false);
@@ -847,20 +872,34 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                                     {les.isFree && <span className="badge badge-green" style={{ fontSize: '0.62rem' }}>Grátis</span>}
                                   </div>
 
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <span style={{ color: '#888888', fontSize: '0.75rem' }}>{les.duration}</span>
+                                    <button
+                                      onClick={() => {
+                                        setEditingLessonData({
+                                          courseId: course.id,
+                                          moduleId: mod.id,
+                                          lesson: { ...les }
+                                        });
+                                      }}
+                                      style={{ background: 'none', border: 'none', color: '#09090B', cursor: 'pointer', padding: '3px' }}
+                                      title="Editar Aula / Vídeo"
+                                    >
+                                      <Edit size={13} />
+                                    </button>
                                     <button
                                       onClick={() => {
                                         if (confirm(`Remover aula "${les.title}"?`)) {
                                           deleteLessonFromModule(course.id, mod.id, les.id);
                                         }
                                       }}
-                                      style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', padding: '2px' }}
+                                      style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', padding: '3px' }}
                                       title="Excluir Aula"
                                     >
                                       <Trash2 size={13} />
                                     </button>
                                   </div>
+
                                 </div>
                               ))
                             )}
@@ -1243,6 +1282,102 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
           </div>
         </div>
       )}
+
+      {/* EDIT LESSON MODAL */}
+      {editingLessonData && (
+        <div className="modal-overlay" onClick={() => setEditingLessonData(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <div>
+                <span className="badge badge-dark" style={{ marginBottom: '4px' }}>Editar Conteúdo</span>
+                <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>Atualizar Aula</h3>
+              </div>
+              <button onClick={() => setEditingLessonData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdateLesson}>
+              <div className="form-group">
+                <label className="form-label">Título da Aula *</label>
+                <input
+                  type="text"
+                  value={editingLessonData.lesson.title}
+                  onChange={(e) => setEditingLessonData({
+                    ...editingLessonData,
+                    lesson: { ...editingLessonData.lesson, title: e.target.value }
+                  })}
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Link do Vídeo da Aula (URL) *</label>
+                <input
+                  type="text"
+                  value={editingLessonData.lesson.videoUrl}
+                  onChange={(e) => setEditingLessonData({
+                    ...editingLessonData,
+                    lesson: { ...editingLessonData.lesson, videoUrl: e.target.value }
+                  })}
+                  className="form-input"
+                  required
+                  placeholder="https://commondatastorage... ou https://www.youtube.com/..."
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="form-group">
+                  <label className="form-label">Duração</label>
+                  <input
+                    type="text"
+                    value={editingLessonData.lesson.duration}
+                    onChange={(e) => setEditingLessonData({
+                      ...editingLessonData,
+                      lesson: { ...editingLessonData.lesson, duration: e.target.value }
+                    })}
+                    className="form-input"
+                    placeholder="25:00"
+                  />
+                </div>
+
+                <div className="form-group" style={{ display: 'flex', alignItems: 'center', paddingTop: '22px' }}>
+                  <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={editingLessonData.lesson.isFree || false}
+                      onChange={(e) => setEditingLessonData({
+                        ...editingLessonData,
+                        lesson: { ...editingLessonData.lesson, isFree: e.target.checked }
+                      })}
+                    />
+                    Aula Grátis (Degustação)
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Descrição / Resumo da Aula</label>
+                <textarea
+                  value={editingLessonData.lesson.description || ''}
+                  onChange={(e) => setEditingLessonData({
+                    ...editingLessonData,
+                    lesson: { ...editingLessonData.lesson, description: e.target.value }
+                  })}
+                  className="form-input"
+                  rows={3}
+                />
+              </div>
+
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>
+                Salvar Alterações da Aula
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
 
       {/* CREATE PLUGIN MODAL */}
       {showPluginModal && (

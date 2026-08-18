@@ -98,98 +98,100 @@ const MainApp = () => {
         {/* MAIN APPLICATION CANVAS */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflowX: 'hidden' }}>
           
-          <main style={{ flex: 1 }}>
-            {activePage === 'home' && (
-              <HomePage
-                setActivePage={setActivePage}
-                onOpenPayment={handleOpenPayment}
-                onSelectCourse={handleSelectCourse}
-              />
-            )}
+          <main style={{ flex: 1, minHeight: '80vh' }}>
+            <div className="page-container" key={activePage}>
+              {activePage === 'home' && (
+                <HomePage
+                  setActivePage={setActivePage}
+                  onOpenPayment={handleOpenPayment}
+                  onSelectCourse={handleSelectCourse}
+                />
+              )}
 
-            {activePage === 'beats-store' && (
-              <BeatsStorePage />
-            )}
+              {activePage === 'beats-store' && (
+                <BeatsStorePage />
+              )}
 
 
-            {activePage === 'aula-gratuita' && (
-              <FreeLessonPage
-                onOpenPayment={handleOpenPayment}
-                setActivePage={setActivePage}
-              />
-            )}
+              {activePage === 'aula-gratuita' && (
+                <FreeLessonPage
+                  onOpenPayment={handleOpenPayment}
+                  setActivePage={setActivePage}
+                />
+              )}
 
-            {activePage === 'cursos' && (
-              <CoursesPage
-                onSelectCourse={handleSelectCourse}
-                setActivePage={setActivePage}
-                onOpenPayment={handleOpenPayment}
-              />
-            )}
+              {activePage === 'cursos' && (
+                <CoursesPage
+                  onSelectCourse={handleSelectCourse}
+                  setActivePage={setActivePage}
+                  onOpenPayment={handleOpenPayment}
+                />
+              )}
 
-            {activePage === 'curso-detalhe' && (
-              <CourseDetailPage
-                course={selectedCourse}
-                onOpenPayment={handleOpenPayment}
-                onStartClassroom={handleStartClassroom}
-                setActivePage={setActivePage}
-              />
-            )}
+              {activePage === 'curso-detalhe' && (
+                <CourseDetailPage
+                  course={selectedCourse}
+                  onOpenPayment={handleOpenPayment}
+                  onStartClassroom={handleStartClassroom}
+                  setActivePage={setActivePage}
+                />
+              )}
 
-            {activePage === 'sala-de-aula' && (
-              <ClassroomPage
-                course={selectedCourse}
-                initialLessonId={selectedLessonId}
-                onOpenPayment={handleOpenPayment}
-                setActivePage={setActivePage}
-                onOpenCertificate={handleOpenCertificate}
-              />
-            )}
+              {activePage === 'sala-de-aula' && (
+                <ClassroomPage
+                  course={selectedCourse}
+                  initialLessonId={selectedLessonId}
+                  onOpenPayment={handleOpenPayment}
+                  setActivePage={setActivePage}
+                  onOpenCertificate={handleOpenCertificate}
+                />
+              )}
 
-            {activePage === 'dashboard' && (
-              <StudentDashboard
-                setActivePage={setActivePage}
-                onSelectCourse={handleSelectCourse}
-                onOpenPayment={handleOpenPayment}
-                onStartClassroom={handleStartClassroom}
-                onOpenCertificate={handleOpenCertificate}
-              />
-            )}
+              {activePage === 'dashboard' && (
+                <StudentDashboard
+                  setActivePage={setActivePage}
+                  onSelectCourse={handleSelectCourse}
+                  onOpenPayment={handleOpenPayment}
+                  onStartClassroom={handleStartClassroom}
+                  onOpenCertificate={handleOpenCertificate}
+                />
+              )}
 
-            {activePage === 'plugins' && (
-              <PluginsPage
-                onOpenPayment={handleOpenPayment}
-              />
-            )}
+              {activePage === 'plugins' && (
+                <PluginsPage
+                  onOpenPayment={handleOpenPayment}
+                />
+              )}
 
-            {activePage === 'aulas-ao-vivo' && (
-              <LiveClassesPage
-                onOpenPayment={handleOpenPayment}
-              />
-            )}
+              {activePage === 'aulas-ao-vivo' && (
+                <LiveClassesPage
+                  onOpenPayment={handleOpenPayment}
+                />
+              )}
 
-            {activePage === 'area-master' && (
-              <MasterAreaPage />
-            )}
+              {activePage === 'area-master' && (
+                <MasterAreaPage />
+              )}
 
-            {activePage === 'verificar-certificado' && (
-              <VerifyCertificatePage
-                initialCode={verifyCodeInitial}
-                onOpenCertificate={handleOpenCertificate}
-              />
-            )}
+              {activePage === 'verificar-certificado' && (
+                <VerifyCertificatePage
+                  initialCode={verifyCodeInitial}
+                  onOpenCertificate={handleOpenCertificate}
+                />
+              )}
 
-            {activePage === 'admin' && (
-              <AdminDashboardPage
-                onOpenCertificate={handleOpenCertificate}
-              />
-            )}
+              {activePage === 'admin' && (
+                <AdminDashboardPage
+                  onOpenCertificate={handleOpenCertificate}
+                />
+              )}
 
-            {activePage === 'login' && (
-              <LoginPage
-                setActivePage={setActivePage}
-              />
-            )}
+              {activePage === 'login' && (
+                <LoginPage
+                  setActivePage={setActivePage}
+                />
+              )}
+            </div>
           </main>
 
 

@@ -261,6 +261,7 @@ export const INITIAL_USERS = [
     id: "usr-admin",
     name: "Silva Jermane Hlatswayo",
     email: "silvativane.3@gmail.com",
+    password: "admin2026",
     phone: "+258 879 817 847",
     role: "admin",
     enrollmentStatus: "approved",
@@ -271,6 +272,7 @@ export const INITIAL_USERS = [
     id: "usr-student-afonso",
     name: "Afonso Domingos",
     email: "afonsodomingos.prod@gmail.com",
+    password: "aluno2026",
     phone: "+258 842 737 924",
     role: "student",
     enrollmentStatus: "approved",
@@ -278,8 +280,21 @@ export const INITIAL_USERS = [
     enrolledAt: "2026-02-14T14:30:00Z",
     completedLessons: ["les-bm-1", "les-bm-2", "les-mix-1"],
     createdAt: "2026-02-14T14:00:00Z"
+  },
+  {
+    id: "usr-student-pending",
+    name: "Carlos Tembe",
+    email: "carlos@exemplo.com",
+    password: "aluno2026",
+    phone: "+258 823 456 789",
+    role: "student",
+    enrollmentStatus: "pending",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+    completedLessons: ["les-bm-1"],
+    createdAt: "2026-08-15T09:12:00Z"
   }
 ];
+
 
 export const INITIAL_PAYMENTS = [
   {

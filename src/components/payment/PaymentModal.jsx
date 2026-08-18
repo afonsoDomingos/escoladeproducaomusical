@@ -8,8 +8,11 @@ import {
   Check, 
   Upload, 
   CheckCircle2, 
-  ArrowRight
+  ArrowRight,
+  MessageCircle,
+  Sparkles
 } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 export const PaymentModal = ({ isOpen, onClose }) => {
   const { currentUser } = useAuth();
@@ -61,8 +64,10 @@ export const PaymentModal = ({ isOpen, onClose }) => {
     }
 
     submitPayment(formData);
+    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
     setStep('success');
   };
+
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -303,28 +308,68 @@ export const PaymentModal = ({ isOpen, onClose }) => {
           </form>
         )}
 
-        {/* STEP 3: SUCCESS */}
+        {/* STEP 3: SUCCESS & CONFIRMATION */}
         {step === 'success' && (
-          <div style={{ textAlign: 'center', padding: '16px 0' }}>
-            <CheckCircle2 size={40} color="#000000" style={{ margin: '0 auto 12px' }} />
+          <div style={{ textAlign: 'center', padding: '12px 0' }}>
+            <div style={{ width: '56px', height: '56px', backgroundColor: '#10B981', color: '#FFF', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 0 20px rgba(16, 185, 129, 0.4)' }}>
+              <Check size={32} strokeWidth={3} />
+            </div>
 
-            <h3 style={{ fontSize: '1.25rem', color: '#000000', marginBottom: '6px', fontWeight: 800 }}>
-              Pagamento Enviado com Sucesso
+            <span className="badge badge-green" style={{ marginBottom: '8px' }}>
+              ✓ Comprovativo Registado com Sucesso
+            </span>
+
+            <h3 style={{ fontSize: '1.35rem', color: '#000000', marginBottom: '8px', fontWeight: 900 }}>
+              Obrigado, {formData.name.split(' ')[0]}!
             </h3>
 
-            <p style={{ fontSize: '0.88rem', color: '#666666', marginBottom: '18px', lineHeight: 1.5 }}>
-              A sua inscrição será analisada pela nossa equipa. O acesso às aulas premium será liberado assim que confirmado.
+            <p style={{ fontSize: '0.88rem', color: '#666666', marginBottom: '20px', lineHeight: 1.5, maxWidth: '440px', margin: '0 auto 20px' }}>
+              A sua inscrição foi enviada para o painel de validação. Para acelerar a libertação imediata das aulas, envie uma mensagem ao Diretor Silva Jermane via WhatsApp:
             </p>
 
-            <span className="badge badge-dark" style={{ marginBottom: '20px' }}>Status: Pendente</span>
+            {/* RECIBO RESUMO */}
+            <div style={{ backgroundColor: '#F8F8F8', border: '1px solid #E5E5E5', borderRadius: '8px', padding: '14px 18px', textAlign: 'left', marginBottom: '20px', fontSize: '0.82rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ color: '#666' }}>Aluno:</span>
+                <strong style={{ color: '#000' }}>{formData.name}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ color: '#666' }}>Canal de Pagamento:</span>
+                <strong style={{ color: '#000' }}>{formData.method} (1.500 MT)</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ color: '#666' }}>Código da Transação:</span>
+                <strong style={{ color: '#000', fontFamily: 'var(--font-mono)' }}>{formData.transactionCode}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#666' }}>Status Atual:</span>
+                <span className="badge badge-dark" style={{ fontSize: '0.68rem' }}>Pendente de Validação</span>
+              </div>
+            </div>
 
-            <div>
-              <button onClick={onClose} className="btn btn-primary" style={{ minWidth: '160px' }}>
-                Entendido
+            {/* AÇÕES */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a
+                href={`https://wa.me/258879817847?text=${encodeURIComponent(`Olá Silva Jermane, fiz o pagamento de 1.500 MT para a Escola de Produção Musical.\n\nNome: ${formData.name}\nCanal: ${formData.method}\nCódigo de Transação: ${formData.transactionCode}\n\nPode confirmar o meu acesso, por favor?`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center', backgroundColor: '#25D366', borderColor: '#25D366', color: '#FFFFFF', padding: '12px' }}
+              >
+                <MessageCircle size={16} /> Acelerar no WhatsApp (+258 879 817 847)
+              </a>
+
+              <button
+                onClick={onClose}
+                className="btn btn-secondary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                Fechar e Continuar Navegando
               </button>
             </div>
           </div>
         )}
+
 
       </div>
     </div>

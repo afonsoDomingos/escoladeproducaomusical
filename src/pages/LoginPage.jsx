@@ -39,6 +39,7 @@ export const LoginPage = ({ setActivePage }) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    setError('');
     if (!formData.email || !formData.password) {
       setError('Por favor preencha o seu email e palavra-passe.');
       return;
@@ -52,11 +53,14 @@ export const LoginPage = ({ setActivePage }) => {
       } else {
         setActivePage('dashboard');
       }
+    } else {
+      setError(res.error || 'Credenciais inválidas.');
     }
   };
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
+    setError('');
     if (!formData.name || !formData.email || !formData.phone || !formData.password) {
       setError('Preencha todos os campos obrigatórios.');
       return;
@@ -76,8 +80,11 @@ export const LoginPage = ({ setActivePage }) => {
     if (res.success) {
       showToast('Conta criada com sucesso! Seja bem-vindo à Escola.', 'success');
       setActivePage('aula-gratuita');
+    } else {
+      setError(res.error || 'Erro ao criar conta.');
     }
   };
+
 
   const handleQuickLogin = (roleType) => {
     if (roleType === 'admin') {

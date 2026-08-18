@@ -235,7 +235,22 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     .filter(p => p.status === 'Aprovada')
     .reduce((acc, p) => acc + (p.amount || 1500), 0);
   const pendingPaymentsCount = payments.filter(p => p.status === 'Pendente').length;
+  const pendingRevenueTotal = payments.filter(p => p.status === 'Pendente').reduce((acc, p) => acc + (p.amount || 1500), 0);
+  const rejectedPaymentsCount = payments.filter(p => p.status === 'Rejeitada').length;
   const approvedStudentsCount = students.filter(s => s.enrollmentStatus === 'approved').length;
+
+  // Receita por método de pagamento
+  const revenueMpesa = payments.filter(p => p.status === 'Aprovada' && p.method === 'M-Pesa').reduce((acc, p) => acc + (p.amount || 1500), 0);
+  const revenueEmola = payments.filter(p => p.status === 'Aprovada' && p.method === 'e-Mola').reduce((acc, p) => acc + (p.amount || 1500), 0);
+
+  // Receita do mês atual
+  const currentMonth = new Date().toISOString().slice(0, 7); // "2026-08"
+  const revenueThisMonth = payments
+    .filter(p => p.status === 'Aprovada' && (p.paymentDate || p.createdAt || '').startsWith(currentMonth))
+    .reduce((acc, p) => acc + (p.amount || 1500), 0);
+
+  // Número de transações aprovadas
+  const totalApprovedTx = payments.filter(p => p.status === 'Aprovada').length;
 
   const filteredStudents = students.filter(s => 
     s.name?.toLowerCase().includes(studentSearch.toLowerCase()) || 
@@ -247,6 +262,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     if (paymentFilter === 'Todos') return true;
     return p.status === paymentFilter;
   });
+
 
   const handleCreateStudent = (e) => {
     e.preventDefault();
@@ -474,63 +490,115 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
         {/* ================= MAIN CONTENT CANVAS ================= */}
         <main style={{ flex: 1, padding: '28px 32px', overflowX: 'hidden' }}>
           
-          {/* TAB 1: VISÃO GERAL */}
+          {/* TAB 1: VISÃO GERAL & FATURAMENTO */}
           {activeTab === 'overview' && (
             <div>
               <div style={{ marginBottom: '24px' }}>
                 <h2 style={{ fontSize: '1.6rem', color: '#000000', fontWeight: 800 }}>
-                  Visão Geral do Sistema
+                  Dashboard de Faturamento
                 </h2>
                 <p style={{ fontSize: '0.85rem', color: '#666666' }}>
-                  Acompanhe em tempo real o faturamento, inscrições e atividades dos alunos.
+                  Controle financeiro completo — receitas confirmadas, pendentes e histórico de transações.
                 </p>
               </div>
 
-              {/* STATS TILES */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '28px' }}>
-                <div className="card" style={{ padding: '20px' }}>
-                  <div style={{ fontSize: '0.78rem', color: '#666666', fontWeight: 600 }}>Receita Confirmada</div>
-                  <div style={{ fontSize: '1.7rem', fontWeight: 900, color: '#000000', marginTop: '4px' }}>
+              {/* ROW 1: KPIs PRINCIPAIS */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '14px', marginBottom: '24px' }}>
+                <div className="card" style={{ padding: '20px', borderLeft: '4px solid #16A34A' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#666666', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>💰 Receita Confirmada</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: '#16A34A', marginTop: '6px' }}>
                     {totalRevenueMT.toLocaleString()} MT
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>e-Mola e M-Pesa</div>
+                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>{totalApprovedTx} transações aprovadas</div>
                 </div>
 
-                <div className="card" style={{ padding: '20px' }}>
-                  <div style={{ fontSize: '0.78rem', color: '#666666', fontWeight: 600 }}>Alunos Liberados</div>
-                  <div style={{ fontSize: '1.7rem', fontWeight: 900, color: '#000000', marginTop: '4px' }}>
+                <div className="card" style={{ padding: '20px', borderLeft: `4px solid ${pendingPaymentsCount > 0 ? '#DC2626' : '#D4D4D4'}` }}>
+                  <div style={{ fontSize: '0.75rem', color: '#666666', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>⏳ A Confirmar</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: pendingPaymentsCount > 0 ? '#DC2626' : '#000000', marginTop: '6px' }}>
+                    {pendingRevenueTotal.toLocaleString()} MT
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>{pendingPaymentsCount} pagamentos a aprovar</div>
+                </div>
+
+                <div className="card" style={{ padding: '20px', borderLeft: '4px solid #000000' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#666666', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>📅 Receita Este Mês</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: '#000000', marginTop: '6px' }}>
+                    {revenueThisMonth.toLocaleString()} MT
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>{currentMonth}</div>
+                </div>
+
+                <div className="card" style={{ padding: '20px', borderLeft: '4px solid #7C3AED' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#666666', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>🎓 Alunos Ativos</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: '#7C3AED', marginTop: '6px' }}>
                     {approvedStudentsCount}
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>Total de {students.length} cadastrados</div>
-                </div>
-
-                <div className="card" style={{ padding: '20px' }}>
-                  <div style={{ fontSize: '0.78rem', color: '#666666', fontWeight: 600 }}>Inscrições Pendentes</div>
-                  <div style={{ fontSize: '1.7rem', fontWeight: 900, color: pendingPaymentsCount > 0 ? '#DC2626' : '#000000', marginTop: '4px' }}>
-                    {pendingPaymentsCount}
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>Aguardando validação</div>
-                </div>
-
-                <div className="card" style={{ padding: '20px' }}>
-                  <div style={{ fontSize: '0.78rem', color: '#666666', fontWeight: 600 }}>Cursos / Aulas</div>
-                  <div style={{ fontSize: '1.7rem', fontWeight: 900, color: '#000000', marginTop: '4px' }}>
-                    {courses.length} Cursos
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>Gestão completa de conteúdo</div>
+                  <div style={{ fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>{students.length} cadastrados no total</div>
                 </div>
               </div>
 
-              {/* QUICK PENDING PAYMENTS ALERT */}
+              {/* ROW 2: BREAKDOWN POR MÉTODO */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '24px' }}>
+                {/* M-Pesa */}
+                <div className="card" style={{ padding: '20px' }}>
+                  <div style={{ fontWeight: 800, color: '#000000', marginBottom: '12px', fontSize: '0.95rem' }}>
+                    📱 Receita por Canal
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {[
+                      { label: 'M-Pesa (842 737 924)', value: revenueMpesa, color: '#E53E3E' },
+                      { label: 'e-Mola (879 817 847)', value: revenueEmola, color: '#3182CE' },
+                    ].map(({ label, value, color }) => {
+                      const pct = totalRevenueMT > 0 ? Math.round((value / totalRevenueMT) * 100) : 0;
+                      return (
+                        <div key={label}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '4px' }}>
+                            <span style={{ fontWeight: 600 }}>{label}</span>
+                            <span style={{ fontWeight: 800 }}>{value.toLocaleString()} MT ({pct}%)</span>
+                          </div>
+                          <div style={{ height: '8px', backgroundColor: '#F0F0F0', borderRadius: '4px', overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: `${pct}%`, backgroundColor: color, borderRadius: '4px', transition: 'width 0.5s ease' }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Resumo Rápido */}
+                <div className="card" style={{ padding: '20px' }}>
+                  <div style={{ fontWeight: 800, color: '#000000', marginBottom: '12px', fontSize: '0.95rem' }}>
+                    📊 Resumo Rápido
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {[
+                      { label: 'Cursos publicados', value: `${courses.length}`, icon: '🎓' },
+                      { label: 'Beats na loja', value: `${beats.length}`, icon: '🎵' },
+                      { label: 'Pedidos de Masterização', value: `${masterRequests.length}`, icon: '🎚️' },
+                      { label: 'Pagamentos rejeitados', value: `${rejectedPaymentsCount}`, icon: '❌' },
+                      { label: 'Sessões ao vivo agendadas', value: `${liveClasses.length}`, icon: '📹' },
+                    ].map(({ label, value, icon }) => (
+                      <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid #F0F0F0' }}>
+                        <span style={{ fontSize: '0.82rem', color: '#444444' }}>{icon} {label}</span>
+                        <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#000000' }}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* ALERTA DE PENDENTES */}
               {pendingPaymentsCount > 0 && (
-                <div className="card" style={{ padding: '20px', marginBottom: '28px', border: '1px solid #000000' }}>
+                <div className="card" style={{ padding: '20px', marginBottom: '24px', border: '2px solid #DC2626' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <AlertCircle size={18} color="#000000" />
-                      <strong style={{ color: '#000000', fontSize: '0.95rem' }}>Inscrições aguardando aprovação:</strong>
+                      <AlertCircle size={18} color="#DC2626" />
+                      <strong style={{ color: '#DC2626', fontSize: '0.95rem' }}>
+                        ⚠️ {pendingPaymentsCount} pagamento(s) aguardando a sua validação — {pendingRevenueTotal.toLocaleString()} MT em trânsito
+                      </strong>
                     </div>
-                    <button onClick={() => setActiveTab('payments')} className="btn btn-secondary btn-sm">
-                      Gerenciar Todos
+                    <button onClick={() => setActiveTab('payments')} className="btn btn-primary btn-sm">
+                      Ver Todos os Pagamentos
                     </button>
                   </div>
 
@@ -538,33 +606,25 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     {payments.filter(p => p.status === 'Pendente').map(p => (
                       <div
                         key={p.id}
-                        style={{
-                          padding: '12px 16px',
-                          backgroundColor: '#F8F8F8',
-                          borderRadius: '4px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          flexWrap: 'wrap',
-                          gap: '10px',
-                          border: '1px solid #E5E5E5'
-                        }}
+                        style={{ padding: '12px 16px', backgroundColor: '#FEF2F2', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', border: '1px solid #FECACA' }}
                       >
                         <div>
                           <div style={{ fontWeight: 800, color: '#000000', fontSize: '0.88rem' }}>
-                            {p.userName} — 1.500 MT ({p.method})
+                            {p.userName} — {(p.amount || 1500).toLocaleString()} MT ({p.method})
                           </div>
                           <div style={{ fontSize: '0.75rem', color: '#666666' }}>
-                            Código: <strong>{p.transactionCode}</strong> • Tel: {p.userPhone}
+                            Código: <strong>{p.transactionCode}</strong> • Tel: {p.userPhone} • {p.paymentDate}
                           </div>
                         </div>
-
                         <div style={{ display: 'flex', gap: '6px' }}>
                           <button onClick={() => setSelectedProofModal(p)} className="btn btn-secondary btn-sm" style={{ padding: '4px 8px', fontSize: '0.75rem' }}>
                             <Eye size={12} /> Ver Recibo
                           </button>
                           <button onClick={() => approvePayment(p.id)} className="btn btn-primary btn-sm" style={{ padding: '4px 8px', fontSize: '0.75rem' }}>
-                            <CheckCircle2 size={12} /> Aprovar
+                            <CheckCircle2 size={12} /> ✅ Aprovar Acesso
+                          </button>
+                          <button onClick={() => rejectPayment(p.id, 'Comprovativo não identificado')} className="btn btn-secondary btn-sm" style={{ padding: '4px 8px', fontSize: '0.75rem', color: '#DC2626' }}>
+                            <XCircle size={12} /> Rejeitar
                           </button>
                         </div>
                       </div>
@@ -572,8 +632,41 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                   </div>
                 </div>
               )}
+
+              {/* HISTÓRICO RECENTE */}
+              <div className="card" style={{ padding: '20px' }}>
+                <div style={{ fontWeight: 800, color: '#000000', marginBottom: '14px', fontSize: '0.95rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>🕐 Histórico de Transações Recentes</span>
+                  <button onClick={() => setActiveTab('payments')} style={{ background: 'none', border: 'none', fontSize: '0.78rem', color: '#666', cursor: 'pointer', textDecoration: 'underline' }}>Ver todos</button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {payments.slice(0, 6).map(p => (
+                    <div key={p.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: '4px', backgroundColor: '#FAFAFA', border: '1px solid #F0F0F0' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: p.status === 'Aprovada' ? '#16A34A' : p.status === 'Pendente' ? '#DC2626' : '#9CA3AF', flexShrink: 0 }} />
+                        <div>
+                          <div style={{ fontWeight: 700, fontSize: '0.84rem', color: '#000000' }}>{p.userName}</div>
+                          <div style={{ fontSize: '0.72rem', color: '#666666' }}>{p.method} • {p.transactionCode} • {p.paymentDate}</div>
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontWeight: 800, fontSize: '0.88rem', color: p.status === 'Aprovada' ? '#16A34A' : p.status === 'Pendente' ? '#DC2626' : '#9CA3AF' }}>
+                          {(p.amount || 1500).toLocaleString()} MT
+                        </div>
+                        <span className={`badge ${p.status === 'Aprovada' ? 'badge-green' : p.status === 'Pendente' ? 'badge-dark' : 'badge-red'}`} style={{ fontSize: '0.65rem' }}>
+                          {p.status}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  {payments.length === 0 && (
+                    <div style={{ textAlign: 'center', color: '#999', fontSize: '0.84rem', padding: '20px' }}>Nenhuma transação registrada ainda.</div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
+
 
           {/* TAB 2: GESTÃO DE PAGAMENTOS */}
           {activeTab === 'payments' && (

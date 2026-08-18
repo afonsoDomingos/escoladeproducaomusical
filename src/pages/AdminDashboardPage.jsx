@@ -1668,9 +1668,9 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
       {/* ===== MODAL: EDITAR CURSO ===== */}
       {editingCourseData && (
         <div className="modal-overlay" onClick={() => setEditingCourseData(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '520px' }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '28px', maxWidth: '540px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Curso</h3>
+              <h3 style={{ fontSize: '1.2rem', color: '#000000', fontWeight: 800 }}>✏️ Editar Curso & Capa</h3>
               <button onClick={() => setEditingCourseData(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
             </div>
             <form onSubmit={handleUpdateCourse}>
@@ -1697,15 +1697,58 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                   </select>
                 </div>
               </div>
+
+              {/* CAPA / THUMBNAIL COM PREVIEW E UPLOAD */}
               <div className="form-group">
-                <label className="form-label">URL da Thumbnail (Capa)</label>
-                <input type="url" value={editingCourseData.thumbnail || ''} onChange={(e) => setEditingCourseData({ ...editingCourseData, thumbnail: e.target.value })} className="form-input" />
+                <label className="form-label">Capa do Curso (Imagem / Thumbnail)</label>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px' }}>
+                  {editingCourseData.thumbnail && (
+                    <img
+                      src={editingCourseData.thumbnail}
+                      alt="Preview da Capa"
+                      style={{ width: '80px', height: '56px', borderRadius: '6px', objectFit: 'cover', border: '1px solid #E5E5E5', flexShrink: 0 }}
+                    />
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <input
+                      type="url"
+                      value={editingCourseData.thumbnail || ''}
+                      onChange={(e) => setEditingCourseData({ ...editingCourseData, thumbnail: e.target.value })}
+                      className="form-input"
+                      placeholder="https://images.unsplash.com/... ou link da imagem"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <label className="btn btn-secondary btn-sm" style={{ cursor: 'pointer', fontSize: '0.75rem', padding: '5px 10px' }}>
+                    📁 Escolher imagem do meu computador
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setEditingCourseData({ ...editingCourseData, thumbnail: reader.result });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                  <span style={{ fontSize: '0.72rem', color: '#666' }}>PNG, JPG ou WebP</span>
+                </div>
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '6px' }}>Salvar Alterações do Curso</button>
+
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>Salvar Alterações do Curso</button>
             </form>
           </div>
         </div>
       )}
+
 
       {/* ===== MODAL: EDITAR BEAT ===== */}
       {editingBeatData && (
@@ -1738,6 +1781,51 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                   <input type="number" value={editingBeatData.priceExclusive} onChange={(e) => setEditingBeatData({ ...editingBeatData, priceExclusive: Number(e.target.value) })} className="form-input" />
                 </div>
               </div>
+              {/* CAPA DO BEAT COM PREVIEW E UPLOAD */}
+              <div className="form-group">
+                <label className="form-label">Capa do Beat (Arte / Thumbnail)</label>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px' }}>
+                  {editingBeatData.cover && (
+                    <img
+                      src={editingBeatData.cover}
+                      alt="Capa do Beat"
+                      style={{ width: '60px', height: '60px', borderRadius: '6px', objectFit: 'cover', border: '1px solid #E5E5E5', flexShrink: 0 }}
+                    />
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <input
+                      type="url"
+                      value={editingBeatData.cover || ''}
+                      onChange={(e) => setEditingBeatData({ ...editingBeatData, cover: e.target.value })}
+                      className="form-input"
+                      placeholder="https://images.unsplash.com/... ou link da capa"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <label className="btn btn-secondary btn-sm" style={{ cursor: 'pointer', fontSize: '0.75rem', padding: '5px 10px' }}>
+                    📁 Escolher arte do meu computador
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setEditingBeatData({ ...editingBeatData, cover: reader.result });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                  <span style={{ fontSize: '0.72rem', color: '#666' }}>PNG, JPG ou WebP</span>
+                </div>
+              </div>
+
               <div className="form-group">
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                   <input type="checkbox" checked={editingBeatData.isFeatured || false} onChange={(e) => setEditingBeatData({ ...editingBeatData, isFeatured: e.target.checked })} />
@@ -1749,6 +1837,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
           </div>
         </div>
       )}
+
 
       {/* ===== MODAL: EDITAR PLUGIN ===== */}
       {editingPluginData && (

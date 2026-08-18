@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: escola-de-producao-musical-api
+    env: node
+    region: oregon
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: FRONTEND_URL
+        value: https://escoladeproducaomusical.vercel.app
+    healthCheckPath: /health

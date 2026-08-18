@@ -10,6 +10,16 @@ import {
   INITIAL_BEATS
 } from '../data/initialData';
 import { useAuth } from './AuthContext';
+import {
+  beatsApi,
+  coursesApi,
+  usersApi,
+  paymentsApi,
+  pluginsApi,
+  liveClassesApi,
+  certificatesApi,
+  masterRequestsApi
+} from '../services/api';
 
 const DatabaseContext = createContext();
 
@@ -45,6 +55,46 @@ export const DatabaseProvider = ({ children }) => {
   useEffect(() => { localStorage.setItem('epm_payments', JSON.stringify(payments)); }, [payments]);
   useEffect(() => { localStorage.setItem('epm_certificates', JSON.stringify(certificates)); }, [certificates]);
   useEffect(() => { localStorage.setItem('epm_master_requests', JSON.stringify(masterRequests)); }, [masterRequests]);
+
+  // Sync with MongoDB API on mount (when backend is active)
+  useEffect(() => {
+    const syncWithBackend = async () => {
+      try {
+        const [beatsRes, coursesRes, usersRes, paymentsRes, pluginsRes, liveRes] = await Promise.allSettled([
+          beatsApi.getAll(),
+          coursesApi.getAll(),
+          usersApi.getAll(),
+          paymentsApi.getAll(),
+          pluginsApi.getAll(),
+          liveClassesApi.getAll()
+        ]);
+
+        if (beatsRes.status === 'fulfilled' && beatsRes.value?.data?.length) {
+          setBeats(beatsRes.value.data);
+        }
+        if (coursesRes.status === 'fulfilled' && coursesRes.value?.data?.length) {
+          setCourses(coursesRes.value.data);
+        }
+        if (usersRes.status === 'fulfilled' && usersRes.value?.data?.length) {
+          setStudents(usersRes.value.data);
+        }
+        if (paymentsRes.status === 'fulfilled' && paymentsRes.value?.data?.length) {
+          setPayments(paymentsRes.value.data);
+        }
+        if (pluginsRes.status === 'fulfilled' && pluginsRes.value?.data?.length) {
+          setPlugins(pluginsRes.value.data);
+        }
+        if (liveRes.status === 'fulfilled' && liveRes.value?.data?.length) {
+          setLiveClasses(liveRes.value.data);
+        }
+      } catch {
+        // Backend offline, keep local state
+      }
+    };
+
+    syncWithBackend();
+  }, []);
+
 
 
   const showToast = (message, type = 'success') => {

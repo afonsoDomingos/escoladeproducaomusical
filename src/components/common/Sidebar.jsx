@@ -63,7 +63,7 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
           onClick={() => handleNavClick('home')}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
         >
-          <div style={{ width: '28px', height: '28px', backgroundColor: '#000000', color: '#FFF', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.8rem' }}>
+          <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)', color: '#FFF', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.75rem', boxShadow: '0 2px 8px rgba(124, 58, 237, 0.4)' }}>
             APM
           </div>
           <span style={{ fontWeight: 900, fontSize: '0.95rem', color: '#000000', letterSpacing: '0.5px' }}>APM</span>
@@ -71,7 +71,7 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {(!currentUser || currentUser.enrollmentStatus !== 'approved') && (
-            <button onClick={onOpenPayment} className="btn btn-primary btn-sm" style={{ padding: '4px 8px', fontSize: '0.75rem' }}>
+            <button onClick={onOpenPayment} className="btn btn-purple btn-sm" style={{ padding: '4px 10px', fontSize: '0.75rem', fontWeight: 800 }}>
               1.500 MT
             </button>
           )}
@@ -149,7 +149,7 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
                 width: '38px',
                 height: '38px',
                 borderRadius: '8px',
-                backgroundColor: '#000000',
+                background: 'linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -157,6 +157,8 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
                 fontWeight: 900,
                 fontSize: '0.85rem',
                 letterSpacing: '-0.5px',
+                boxShadow: '0 4px 14px rgba(124, 58, 237, 0.4)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
                 flexShrink: 0
               }}
             >
@@ -166,7 +168,7 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
               <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 900, fontSize: '0.98rem', lineHeight: 1.15, color: '#000000', letterSpacing: '-0.02em' }}>
                 APM ACADEMY
               </div>
-              <div style={{ fontSize: '0.65rem', color: '#666666', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65rem', color: '#7C3AED', fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                 Jayon Tivane
               </div>
             </div>
@@ -192,20 +194,22 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '8px 10px',
-                    borderRadius: '4px',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
                     border: 'none',
                     fontSize: '0.86rem',
-                    fontWeight: isActive ? 700 : 500,
-                    backgroundColor: isActive ? '#000000' : 'transparent',
+                    fontWeight: isActive ? 800 : 500,
+                    backgroundColor: isActive ? '#09090B' : 'transparent',
                     color: isActive ? '#FFFFFF' : '#333333',
+                    boxShadow: isActive ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
+                    borderLeft: isActive ? '3px solid #8B5CF6' : '3px solid transparent',
                     cursor: 'pointer',
                     textAlign: 'left',
-                    transition: 'all 0.1s'
+                    transition: 'all 0.15s'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <IconC size={16} color={isActive ? '#FFFFFF' : '#000000'} />
+                    <IconC size={16} color={isActive ? '#A855F7' : '#000000'} />
                     <span>{link.label}</span>
                   </div>
 
@@ -216,9 +220,9 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
                         fontWeight: 700, 
                         padding: '1px 5px', 
                         borderRadius: '3px',
-                        backgroundColor: isActive ? '#333333' : '#F5F5F5',
-                        color: isActive ? '#FFFFFF' : '#000000',
-                        border: '1px solid #D4D4D4'
+                        backgroundColor: isActive ? 'rgba(139, 92, 246, 0.3)' : '#F5F5F5',
+                        color: isActive ? '#C084FC' : '#000000',
+                        border: isActive ? '1px solid #8B5CF6' : '1px solid #D4D4D4'
                       }}
                     >
                       {link.badge}
@@ -228,6 +232,7 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
               );
             })}
           </nav>
+
 
           {/* USER ROLES SHORTCUTS */}
           {currentUser && (

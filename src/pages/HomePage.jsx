@@ -319,22 +319,23 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
               gap: '40px',
               alignItems: 'center',
-              backgroundColor: '#FAFAFA',
-              border: '1px solid var(--border-light)',
-              borderRadius: 'var(--radius-md)',
-              padding: 'clamp(24px, 4vw, 44px)'
+              background: 'radial-gradient(circle at 25% 45%, rgba(124, 58, 237, 0.09) 0%, #FFFFFF 65%)',
+              border: '1.5px solid rgba(124, 58, 237, 0.25)',
+              borderRadius: 'var(--radius-lg)',
+              padding: 'clamp(24px, 4vw, 44px)',
+              boxShadow: '0 10px 30px rgba(124, 58, 237, 0.08)'
             }}
           >
-            {/* FOTO DO MENTOR */}
+            {/* FOTO DO MENTOR COM GLOW VIOLETA */}
             <div style={{ textAlign: 'center', position: 'relative' }}>
               <div
                 style={{
                   position: 'relative',
                   display: 'inline-block',
-                  borderRadius: '16px',
+                  borderRadius: '20px',
                   overflow: 'hidden',
-                  border: '3px solid #09090B',
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.12)'
+                  border: '3px solid #7C3AED',
+                  boxShadow: '0 16px 40px rgba(124, 58, 237, 0.35), 0 0 20px rgba(139, 92, 246, 0.2)'
                 }}
               >
                 <img
@@ -358,23 +359,24 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
                     bottom: '12px',
                     left: '12px',
                     right: '12px',
-                    backgroundColor: 'rgba(9, 9, 11, 0.88)',
+                    backgroundColor: 'rgba(9, 9, 11, 0.92)',
                     backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(139, 92, 246, 0.35)',
                     color: '#FFFFFF',
                     padding: '8px 12px',
                     borderRadius: '8px',
                     textAlign: 'left'
                   }}
                 >
-                  <div style={{ fontSize: '0.88rem', fontWeight: 800 }}>{mentor.name}</div>
-                  <div style={{ fontSize: '0.72rem', color: '#D4D4D8' }}>{mentor.location}</div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#FFFFFF' }}>{mentor.name}</div>
+                  <div style={{ fontSize: '0.72rem', color: '#C084FC', fontWeight: 700 }}>{mentor.location}</div>
                 </div>
               </div>
             </div>
 
             {/* BIO & APRESENTAÇÃO */}
             <div>
-              <span className="badge badge-dark" style={{ marginBottom: '8px' }}>
+              <span className="badge badge-purple" style={{ marginBottom: '8px' }}>
                 Conheça o Seu Mentor
               </span>
 
@@ -382,13 +384,13 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
                 {mentor.name}
               </h2>
 
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#4F46E5', marginBottom: '14px' }}>
+              <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#7C3AED', marginBottom: '14px', letterSpacing: '-0.01em' }}>
                 {mentor.realName} • {mentor.title}
               </div>
 
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
                 {mentor.badge1 && <span className="badge badge-purple" style={{ fontSize: '0.75rem' }}>{mentor.badge1}</span>}
-                {mentor.badge2 && <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>{mentor.badge2}</span>}
+                {mentor.badge2 && <span className="badge badge-purple" style={{ fontSize: '0.75rem' }}>{mentor.badge2}</span>}
                 {mentor.badge3 && <span className="badge badge-dark" style={{ fontSize: '0.75rem' }}>{mentor.badge3}</span>}
               </div>
 
@@ -402,16 +404,16 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
 
               {/* STATS DO MENTOR */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px', textAlign: 'center' }}>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>{mentor.experienceYears}</div>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid rgba(124, 58, 237, 0.2)' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#7C3AED' }}>{mentor.experienceYears}</div>
                   <div style={{ fontSize: '0.7rem', color: '#666' }}>Experiência</div>
                 </div>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>{mentor.totalCoursesCount}</div>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid rgba(124, 58, 237, 0.2)' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#7C3AED' }}>{mentor.totalCoursesCount}</div>
                   <div style={{ fontSize: '0.7rem', color: '#666' }}>Especializados</div>
                 </div>
-                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid #E5E5E5' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#09090B' }}>{mentor.practiceRatio}</div>
+                <div style={{ padding: '10px', backgroundColor: '#FFFFFF', borderRadius: '6px', border: '1px solid rgba(124, 58, 237, 0.2)' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#7C3AED' }}>{mentor.practiceRatio}</div>
                   <div style={{ fontSize: '0.7rem', color: '#666' }}>Prático</div>
                 </div>
               </div>
@@ -419,7 +421,8 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => onOpenPayment()}
-                  className="btn btn-primary"
+                  className="btn btn-purple btn-lg"
+                  style={{ fontWeight: 800 }}
                 >
                   Garantir Minha Vaga (1.500 MT)
                 </button>
@@ -435,6 +438,7 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 

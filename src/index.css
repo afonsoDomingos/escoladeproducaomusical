@@ -25,11 +25,24 @@
   --border-dark: #27272A;
   --border-focus: #09090B;
 
-  /* Sombras Precisas */
+  /* Paleta Roxo Elétrico & Cyber Violet (Inspirada na Jaqueta do Jayon Tivane) */
+  --purple-primary: #7C3AED;
+  --purple-electric: #8B5CF6;
+  --purple-neon: #A855F7;
+  --purple-light: #C084FC;
+  --purple-dark: #5B21B6;
+  --purple-deep: #4C1D95;
+  --purple-subtle: rgba(139, 92, 246, 0.08);
+  --purple-glow: rgba(139, 92, 246, 0.4);
+  --purple-gradient: linear-gradient(135deg, #7C3AED 0%, #9333EA 50%, #6366F1 100%);
+  --purple-hover-gradient: linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #7C3AED 100%);
+
+  /* Sombras Precisas & Neon */
   --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 10px 30px rgba(124, 58, 237, 0.12), 0 2px 4px rgba(0, 0, 0, 0.03);
   --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+  --shadow-purple-glow: 0 0 25px rgba(139, 92, 246, 0.5), 0 0 50px rgba(124, 58, 237, 0.2);
 
   /* Bordas Arredondadas */
   --radius-xs: 4px;
@@ -88,7 +101,7 @@ button, input, select, textarea {
   padding-right: 1.75rem;
 }
 
-/* Botões Studio Minimalistas */
+/* Botões Studio com Toque Roxo Elétrico Interativo */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -101,35 +114,58 @@ button, input, select, textarea {
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 .btn-primary {
   background-color: #09090B;
   color: #FFFFFF;
   border: 1px solid #09090B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:hover {
-  background-color: #27272A;
-  border-color: #27272A;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  background: var(--purple-gradient);
+  border-color: var(--purple-electric);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+}
+
+.btn-purple {
+  background: var(--purple-gradient);
+  color: #FFFFFF;
+  border: 1px solid var(--purple-electric);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+}
+
+.btn-purple:hover {
+  background: var(--purple-hover-gradient);
+  box-shadow: 0 6px 25px rgba(139, 92, 246, 0.55);
+  transform: translateY(-2px);
 }
 
 .btn-gold, .btn-action {
-  background-color: #09090B;
+  background: var(--purple-gradient);
   color: #FFFFFF;
-  border: 1px solid #09090B;
+  border: 1px solid var(--purple-electric);
 }
 
 .btn-gold:hover, .btn-action:hover {
-  background-color: #27272A;
+  background: var(--purple-hover-gradient);
+  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.4);
 }
 
 .btn-secondary {
@@ -139,8 +175,11 @@ button, input, select, textarea {
 }
 
 .btn-secondary:hover {
-  background-color: #F4F4F5;
-  border-color: #09090B;
+  background-color: var(--purple-subtle);
+  border-color: var(--purple-electric);
+  color: var(--purple-deep);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+  transform: translateY(-1px);
 }
 
 .btn-outline-white {
@@ -153,6 +192,7 @@ button, input, select, textarea {
   background-color: #FFFFFF;
   color: #000000;
   border-color: #FFFFFF;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .btn-sm {
@@ -169,18 +209,18 @@ button, input, select, textarea {
   padding: 0.55rem;
 }
 
-/* Cards com Refinamento de Linhas e Elevação */
+/* Cards com Refinamento de Linhas e Glow Roxo no Hover */
 .card {
   background: #FFFFFF;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover {
-  border-color: #A1A1AA;
-  box-shadow: var(--shadow-hover);
+  border-color: var(--purple-electric);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.12), 0 2px 4px rgba(0, 0, 0, 0.03);
   transform: translateY(-2px);
 }
 
@@ -190,30 +230,44 @@ button, input, select, textarea {
   border: 1px solid #27272A;
 }
 
-/* Badges Monocromáticas Precisas */
+/* Badges com o Roxo Real do Jayon Tivane */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.55rem;
-  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: var(--radius-xs);
   font-family: var(--font-mono);
+  transition: all 0.15s ease;
 }
 
-.badge-dark, .badge-purple, .badge-gold {
+.badge-purple {
+  background-color: rgba(124, 58, 237, 0.12);
+  color: #6D28D9;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  font-weight: 800;
+}
+
+.badge-dark {
   background-color: #09090B;
   color: #FFFFFF;
   border: 1px solid #09090B;
 }
 
+.badge-gold {
+  background-color: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
 .badge-green {
-  background-color: #F4F4F5;
-  color: #09090B;
-  border: 1px solid var(--border-light);
+  background-color: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
 }
 
 .badge-red {
@@ -221,6 +275,7 @@ button, input, select, textarea {
   color: #DC2626;
   border: 1px solid #FECACA;
 }
+
 
 /* Equalizador Studio VU / Waveform */
 .eq-bars {
@@ -288,15 +343,18 @@ button, input, select, textarea {
 .beat-pad-btn:hover {
   background: #27272A;
   color: #FFFFFF;
-  border-color: #52525B;
+  border-color: var(--purple-electric);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
 }
 
 .beat-pad-btn:active, .beat-pad-btn.active {
-  background: #FFFFFF;
-  color: #000000;
-  border-color: #FFFFFF;
-  transform: scale(0.95);
+  background: var(--purple-gradient) !important;
+  color: #FFFFFF !important;
+  border-color: var(--purple-neon) !important;
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.85), 0 0 45px rgba(124, 58, 237, 0.5) !important;
+  transform: scale(0.94);
 }
+
 
 /* Modais */
 .modal-overlay {

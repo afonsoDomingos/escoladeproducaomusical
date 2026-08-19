@@ -7,8 +7,10 @@ import {
   INITIAL_PAYMENTS,
   INITIAL_CERTIFICATES,
   INITIAL_MASTER_REQUESTS,
-  INITIAL_BEATS
+  INITIAL_BEATS,
+  INITIAL_MENTOR_PROFILE
 } from '../data/initialData';
+
 import { useAuth } from './AuthContext';
 import {
   beatsApi,
@@ -44,6 +46,7 @@ export const DatabaseProvider = ({ children }) => {
   const [payments, setPayments] = useState(() => loadState('epm_payments', INITIAL_PAYMENTS));
   const [certificates, setCertificates] = useState(() => loadState('epm_certificates', INITIAL_CERTIFICATES));
   const [masterRequests, setMasterRequests] = useState(() => loadState('epm_master_requests', INITIAL_MASTER_REQUESTS));
+  const [mentorProfile, setMentorProfile] = useState(() => loadState('epm_mentor_profile', INITIAL_MENTOR_PROFILE));
   const [toastMessage, setToastMessage] = useState(null);
 
   // Sync to localStorage
@@ -55,6 +58,8 @@ export const DatabaseProvider = ({ children }) => {
   useEffect(() => { localStorage.setItem('epm_payments', JSON.stringify(payments)); }, [payments]);
   useEffect(() => { localStorage.setItem('epm_certificates', JSON.stringify(certificates)); }, [certificates]);
   useEffect(() => { localStorage.setItem('epm_master_requests', JSON.stringify(masterRequests)); }, [masterRequests]);
+  useEffect(() => { localStorage.setItem('epm_mentor_profile', JSON.stringify(mentorProfile)); }, [mentorProfile]);
+
 
   // Sync with MongoDB API on mount (when backend is active)
   useEffect(() => {
@@ -417,6 +422,11 @@ export const DatabaseProvider = ({ children }) => {
     showToast("Beat atualizado com sucesso!", "success");
   };
 
+  const updateMentorProfile = (updatedData) => {
+    setMentorProfile(prev => ({ ...prev, ...updatedData }));
+    showToast("Perfil do Mentor Jayon atualizado com sucesso!", "success");
+  };
+
   return (
     <DatabaseContext.Provider
       value={{
@@ -428,6 +438,8 @@ export const DatabaseProvider = ({ children }) => {
         payments,
         certificates,
         masterRequests,
+        mentorProfile,
+        updateMentorProfile,
         toastMessage,
         showToast,
         submitPayment,
@@ -460,6 +472,7 @@ export const DatabaseProvider = ({ children }) => {
         updateMasterRequestStatus
       }}
     >
+
       {children}
     </DatabaseContext.Provider>
   );

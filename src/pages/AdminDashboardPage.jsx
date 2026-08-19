@@ -25,7 +25,10 @@ import {
   FileText,
   UserPlus,
   ShoppingBag,
-  Music
+  Music,
+  Pencil,
+  UserCheck,
+  Sparkles
 } from 'lucide-react';
 
 export const AdminDashboardPage = ({ onOpenCertificate }) => {
@@ -38,6 +41,8 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     liveClasses, 
     certificates, 
     masterRequests, 
+    mentorProfile,
+    updateMentorProfile,
     approvePayment, 
     rejectPayment,
     addCourse,
@@ -64,6 +69,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     updateMasterRequestStatus,
     showToast
   } = useDatabase();
+
 
 
 
@@ -326,17 +332,43 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
     setSelectedCourseForLesson(null);
   };
 
+  const [mentorForm, setMentorForm] = useState(mentorProfile || {
+    name: "Jayon Tivane",
+    realName: "Silva Jermane Hlatswayo",
+    title: "Produtor Musical, Beat Maker e Cantor",
+    affiliation: "Membro da Euro Boys Mz",
+    location: "Euro Boys Mz • Maputo",
+    photo: "/jayon-tivane.jpg",
+    badge1: "🇲🇿 Membro da Euro Boys Mz",
+    badge2: "Afrobeat & Amapiano",
+    badge3: "Mix & Master Pro",
+    bioParagraph1: "Com uma trajectória sólida na música moçambicana como Produtor Musical, Beat Maker e Cantor, e como membro do conceituado grupo Euro Boys Mz, Jayon Tivane dedica-se a transmitir todo o seu conhecimento prático de estúdio.",
+    bioParagraph2: "Nesta escola, o foco não é apenas teoria — vais aprender a produzir batidas que tocam nas rádios, dominar a afinação e mixagem de voz, além de preparar masters competitivos para o Spotify e plataformas mundiais.",
+    experienceYears: "+8 Anos",
+    totalCoursesCount: "3 Cursos",
+    practiceRatio: "100%",
+    whatsappNumber: "+258 879 817 847",
+    whatsappMessage: "Olá Jayon Tivane, gostaria de tirar uma dúvida sobre os cursos da Escola de Produção Musical."
+  });
+
+  const handleSaveMentorProfile = (e) => {
+    e.preventDefault();
+    updateMentorProfile(mentorForm);
+  };
+
   const sidebarItems = [
     { id: 'overview', label: 'Visão Geral', icon: TrendingUp },
     { id: 'payments', label: 'Pagamentos', count: pendingPaymentsCount, isAlert: pendingPaymentsCount > 0, icon: CreditCard },
     { id: 'students', label: 'Controle de Alunos', count: students.length, icon: Users },
     { id: 'courses', label: 'Gestão de Cursos & Aulas', count: courses.length, icon: BookOpen },
+    { id: 'mentor', label: 'Apresentação Jayon', icon: UserCheck },
     { id: 'beats', label: 'Loja de Beats', count: beats.length, icon: ShoppingBag },
     { id: 'plugins', label: 'Plugins & Recursos', count: plugins.length, icon: Download },
     { id: 'live', label: 'Aulas ao Vivo', count: liveClasses.length, icon: Video },
     { id: 'master', label: 'Área de Master', count: masterRequests.length, icon: Sliders },
     { id: 'certificates', label: 'Certificados', count: certificates.length, icon: Award }
   ];
+
 
 
   return (
@@ -1311,8 +1343,295 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
             </div>
           )}
 
+          {/* TAB MENTOR: APRESENTAÇÃO DO MENTOR JAYON TIVANE */}
+          {activeTab === 'mentor' && (
+
+            <div>
+              <div style={{ marginBottom: '24px' }}>
+                <h2 style={{ fontSize: '1.5rem', color: '#000000', fontWeight: 800, marginBottom: '4px' }}>
+                  👤 Apresentação do Mentor Jayon Tivane (Página Inicial)
+                </h2>
+                <p style={{ fontSize: '0.84rem', color: '#666666' }}>
+                  Personalize as informações, foto oficial, biografia, afiliação (Euro Boys Mz) e link de WhatsApp que aparecem na 2ª secção da Página Inicial.
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', alignItems: 'start' }}>
+                
+                {/* FORMULÁRIO DE EDIÇÃO */}
+                <div className="card" style={{ padding: '24px' }}>
+                  <form onSubmit={handleSaveMentorProfile}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                      <div className="form-group">
+                        <label className="form-label">Nome Artístico *</label>
+                        <input
+                          type="text"
+                          value={mentorForm.name}
+                          onChange={(e) => setMentorForm({ ...mentorForm, name: e.target.value })}
+                          className="form-input"
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Nome Real *</label>
+                        <input
+                          type="text"
+                          value={mentorForm.realName}
+                          onChange={(e) => setMentorForm({ ...mentorForm, realName: e.target.value })}
+                          className="form-input"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Título / Profissão *</label>
+                      <input
+                        type="text"
+                        value={mentorForm.title}
+                        onChange={(e) => setMentorForm({ ...mentorForm, title: e.target.value })}
+                        className="form-input"
+                        required
+                        placeholder="Produtor Musical, Beat Maker e Cantor"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Afiliação / Localização</label>
+                      <input
+                        type="text"
+                        value={mentorForm.location}
+                        onChange={(e) => setMentorForm({ ...mentorForm, location: e.target.value })}
+                        className="form-input"
+                        placeholder="Euro Boys Mz • Maputo"
+                      />
+                    </div>
+
+                    {/* FOTO DO MENTOR COM UPLOAD */}
+                    <div className="form-group">
+                      <label className="form-label">Foto Oficial do Mentor</label>
+                      <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px' }}>
+                        {mentorForm.photo && (
+                          <img
+                            src={mentorForm.photo}
+                            alt="Preview Mentor"
+                            style={{ width: '64px', height: '64px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #E5E5E5', flexShrink: 0 }}
+                          />
+                        )}
+                        <input
+                          type="text"
+                          value={mentorForm.photo}
+                          onChange={(e) => setMentorForm({ ...mentorForm, photo: e.target.value })}
+                          className="form-input"
+                          placeholder="/jayon-tivane.jpg ou link da foto"
+                        />
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <label className="btn btn-secondary btn-sm" style={{ cursor: 'pointer', fontSize: '0.75rem', padding: '5px 10px' }}>
+                          📁 Escolher nova foto do computador
+                          <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              if (file) {
+                                const reader = new FileReader();
+                                reader.onloadend = () => {
+                                  setMentorForm({ ...mentorForm, photo: reader.result });
+                                };
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                          />
+                        </label>
+                        <span style={{ fontSize: '0.72rem', color: '#666' }}>PNG, JPG ou WebP</span>
+                      </div>
+                    </div>
+
+                    {/* BADGES */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>Badge 1</label>
+                        <input
+                          type="text"
+                          value={mentorForm.badge1 || ''}
+                          onChange={(e) => setMentorForm({ ...mentorForm, badge1: e.target.value })}
+                          className="form-input"
+                          placeholder="🇲🇿 Membro da Euro Boys Mz"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>Badge 2</label>
+                        <input
+                          type="text"
+                          value={mentorForm.badge2 || ''}
+                          onChange={(e) => setMentorForm({ ...mentorForm, badge2: e.target.value })}
+                          className="form-input"
+                          placeholder="Afrobeat & Amapiano"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>Badge 3</label>
+                        <input
+                          type="text"
+                          value={mentorForm.badge3 || ''}
+                          onChange={(e) => setMentorForm({ ...mentorForm, badge3: e.target.value })}
+                          className="form-input"
+                          placeholder="Mix & Master Pro"
+                        />
+                      </div>
+                    </div>
+
+                    {/* BIOGRAFIAS */}
+                    <div className="form-group">
+                      <label className="form-label">Biografia — Parágrafo 1</label>
+                      <textarea
+                        value={mentorForm.bioParagraph1}
+                        onChange={(e) => setMentorForm({ ...mentorForm, bioParagraph1: e.target.value })}
+                        className="form-input"
+                        rows={3}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Biografia — Parágrafo 2</label>
+                      <textarea
+                        value={mentorForm.bioParagraph2}
+                        onChange={(e) => setMentorForm({ ...mentorForm, bioParagraph2: e.target.value })}
+                        className="form-input"
+                        rows={3}
+                      />
+                    </div>
+
+                    {/* MÉTRICAS */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>Experiência</label>
+                        <input
+                          type="text"
+                          value={mentorForm.experienceYears}
+                          onChange={(e) => setMentorForm({ ...mentorForm, experienceYears: e.target.value })}
+                          className="form-input"
+                          placeholder="+8 Anos"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>Cursos</label>
+                        <input
+                          type="text"
+                          value={mentorForm.totalCoursesCount}
+                          onChange={(e) => setMentorForm({ ...mentorForm, totalCoursesCount: e.target.value })}
+                          className="form-input"
+                          placeholder="3 Cursos"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" style={{ fontSize: '0.72rem' }}>% Prático</label>
+                        <input
+                          type="text"
+                          value={mentorForm.practiceRatio}
+                          onChange={(e) => setMentorForm({ ...mentorForm, practiceRatio: e.target.value })}
+                          className="form-input"
+                          placeholder="100%"
+                        />
+                      </div>
+                    </div>
+
+                    {/* WHATSAPP */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div className="form-group">
+                        <label className="form-label">Número WhatsApp *</label>
+                        <input
+                          type="tel"
+                          value={mentorForm.whatsappNumber}
+                          onChange={(e) => setMentorForm({ ...mentorForm, whatsappNumber: e.target.value })}
+                          className="form-input"
+                          placeholder="+258 879 817 847"
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Mensagem Padrão do WhatsApp</label>
+                        <input
+                          type="text"
+                          value={mentorForm.whatsappMessage || ''}
+                          onChange={(e) => setMentorForm({ ...mentorForm, whatsappMessage: e.target.value })}
+                          className="form-input"
+                          placeholder="Olá Jayon Tivane..."
+                        />
+                      </div>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%', marginTop: '10px' }}>
+                      <Sparkles size={16} /> Salvar Apresentação do Mentor
+                    </button>
+                  </form>
+                </div>
+
+                {/* PREVIEW VISUAL AO VIVO */}
+                <div className="card" style={{ padding: '24px', backgroundColor: '#FAFAFA', border: '1.5px solid #000000' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <strong style={{ fontSize: '0.9rem', color: '#000' }}>👁️ Visualização em Tempo Real (Página Inicial):</strong>
+                    <span className="badge badge-dark" style={{ fontSize: '0.65rem' }}>Ao Vivo</span>
+                  </div>
+
+                  <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                    <img
+                      src={mentorForm.photo || '/jayon-tivane.jpg'}
+                      alt="Preview"
+                      style={{ width: '140px', height: '140px', borderRadius: '12px', objectFit: 'cover', border: '2px solid #000', margin: '0 auto', display: 'block' }}
+                      onError={(e) => { e.target.src = '/jayon-tivane.jpg'; }}
+                    />
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#000', marginTop: '10px', marginBottom: '2px' }}>
+                      {mentorForm.name}
+                    </h3>
+                    <div style={{ fontSize: '0.78rem', color: '#4F46E5', fontWeight: 700 }}>
+                      {mentorForm.realName} • {mentorForm.title}
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#666' }}>
+                      {mentorForm.location}
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '12px' }}>
+                    {mentorForm.badge1 && <span className="badge badge-purple" style={{ fontSize: '0.65rem' }}>{mentorForm.badge1}</span>}
+                    {mentorForm.badge2 && <span className="badge badge-green" style={{ fontSize: '0.65rem' }}>{mentorForm.badge2}</span>}
+                    {mentorForm.badge3 && <span className="badge badge-dark" style={{ fontSize: '0.65rem' }}>{mentorForm.badge3}</span>}
+                  </div>
+
+                  <p style={{ fontSize: '0.8rem', color: '#555', lineHeight: 1.5, marginBottom: '14px', textAlign: 'justify' }}>
+                    {mentorForm.bioParagraph1}
+                  </p>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', textAlign: 'center', marginBottom: '14px' }}>
+                    <div style={{ padding: '6px', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #E5E5E5' }}>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 900 }}>{mentorForm.experienceYears}</div>
+                      <div style={{ fontSize: '0.62rem', color: '#666' }}>Experiência</div>
+                    </div>
+                    <div style={{ padding: '6px', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #E5E5E5' }}>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 900 }}>{mentorForm.totalCoursesCount}</div>
+                      <div style={{ fontSize: '0.62rem', color: '#666' }}>Cursos</div>
+                    </div>
+                    <div style={{ padding: '6px', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #E5E5E5' }}>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 900 }}>{mentorForm.practiceRatio}</div>
+                      <div style={{ fontSize: '0.62rem', color: '#666' }}>Prático</div>
+                    </div>
+                  </div>
+
+                  <div style={{ fontSize: '0.72rem', color: '#666', textAlign: 'center', backgroundColor: '#E0E7FF', padding: '6px 10px', borderRadius: '4px' }}>
+                    💬 WhatsApp Conectado: <strong>{mentorForm.whatsappNumber}</strong>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
+
         </main>
       </div>
+
 
       {/* MODAL: NOVO ALUNO */}
       {showStudentModal && (

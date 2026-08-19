@@ -437,3 +437,23 @@ export const INITIAL_BEATS = [
   }
 ];
 
+export const INITIAL_MENTOR_PROFILE = {
+  name: "Jayon Tivane",
+  realName: "Silva Jermane Hlatswayo",
+  title: "Produtor Musical, Beat Maker e Cantor",
+  affiliation: "Membro da Euro Boys Mz",
+  location: "Euro Boys Mz • Maputo",
+  photo: "/jayon-tivane.jpg",
+  badge1: "🇲🇿 Membro da Euro Boys Mz",
+  badge2: "Afrobeat & Amapiano",
+  badge3: "Mix & Master Pro",
+  bioParagraph1: "Com uma trajectória sólida na música moçambicana como Produtor Musical, Beat Maker e Cantor, e como membro do conceituado grupo Euro Boys Mz, Jayon Tivane dedica-se a transmitir todo o seu conhecimento prático de estúdio.",
+  bioParagraph2: "Nesta escola, o foco não é apenas teoria — vais aprender a produzir batidas que tocam nas rádios, dominar a afinação e mixagem de voz, além de preparar masters competitivos para o Spotify e plataformas mundiais.",
+  experienceYears: "+8 Anos",
+  totalCoursesCount: "3 Cursos",
+  practiceRatio: "100%",
+  whatsappNumber: "+258 879 817 847",
+  whatsappMessage: "Olá Jayon Tivane, gostaria de tirar uma dúvida sobre os cursos da Escola de Produção Musical."
+};
+
+

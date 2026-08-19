@@ -36,15 +36,9 @@ export const FreeLessonPage = ({ onOpenPayment }) => {
           </p>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) 320px',
-            gap: '28px',
-            alignItems: 'start'
-          }}
-        >
+        <div className="grid-split-layout">
           {/* MAIN VIDEO & DETAILS */}
+
           <div>
             {/* VIDEO PLAYER CONTAINER */}
             <div

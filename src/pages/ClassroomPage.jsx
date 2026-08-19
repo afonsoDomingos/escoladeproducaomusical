@@ -124,15 +124,9 @@ export const ClassroomPage = ({ course, initialLessonId, onOpenPayment, setActiv
         </div>
 
         {/* MAIN CLASSROOM WORKSPACE */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) 360px',
-            gap: '28px',
-            alignItems: 'start'
-          }}
-        >
+        <div className="grid-split-layout">
           {/* LEFT: VIDEO PLAYER & LESSON CONTENT */}
+
           <div>
             {/* VIDEO CONTAINER OR LOCKED COVER */}
             <div

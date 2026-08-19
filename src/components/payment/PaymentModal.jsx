@@ -186,7 +186,7 @@ export const PaymentModal = ({ isOpen, onClose }) => {
         {/* STEP 2: FORM */}
         {step === 'form' && (
           <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Nome Completo *</label>
                 <input
@@ -210,7 +210,7 @@ export const PaymentModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Telefone / WhatsApp *</label>
                 <input
@@ -218,7 +218,7 @@ export const PaymentModal = ({ isOpen, onClose }) => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="form-input"
-                  placeholder="+258 84..."
+                  placeholder="+258 84 123 4567"
                   required
                 />
               </div>
@@ -236,7 +236,8 @@ export const PaymentModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="form-grid-2">
+
               <div className="form-group">
                 <label className="form-label">Valor</label>
                 <input

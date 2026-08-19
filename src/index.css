@@ -460,9 +460,59 @@ button, input, select, textarea {
   }
 }
 
+/* Responsive Utilities & Grid Breakpoints */
+.grid-split-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+.grid-2cols-responsive {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grid-3cols-responsive {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+/* Prevenção universal de quebras e cortes no mobile */
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
 @media (max-width: 900px) {
   .show-on-mobile {
     display: flex !important;
+  }
+
+  .grid-split-layout {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
   }
 
   .global-sidebar {
@@ -486,11 +536,55 @@ button, input, select, textarea {
   }
 }
 
+@media (max-width: 680px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .grid-2cols-responsive, .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid-3cols-responsive, .form-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem !important;
+  }
+
+  .modal-content {
+    max-width: 96vw !important;
+    max-height: 94vh !important;
+    padding: 18px !important;
+    border-radius: var(--radius-sm) !important;
+  }
+
+  .btn-lg {
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .beat-pad-btn {
+    font-size: 0.58rem !important;
+    padding: 4px 2px !important;
+  }
+}
+
 @media (min-width: 901px) {
   .global-sidebar {
     left: 0 !important;
   }
 }
+
 
 /* Print CSS for High-Quality Certificate Printing */
 @media print {

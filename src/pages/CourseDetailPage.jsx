@@ -139,8 +139,9 @@ export const CourseDetailPage = ({ course, onOpenPayment, onStartClassroom, setA
         </div>
 
         {/* SYLLABUS & MODULES BREAKDOWN */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) 1fr', gap: '32px' }}>
+        <div className="grid-split-layout">
           
+
           {/* CURRICULUM MODULES */}
           <div>
             <h3 style={{ fontSize: '1.4rem', color: 'var(--purple-950)', marginBottom: '20px', fontWeight: 800 }}>

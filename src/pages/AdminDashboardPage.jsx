@@ -570,8 +570,9 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
               </div>
 
               {/* ROW 2: BREAKDOWN POR MÉTODO */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '24px' }}>
+              <div className="grid-2cols-responsive" style={{ marginBottom: '24px' }}>
                 {/* M-Pesa */}
+
                 <div className="card" style={{ padding: '20px' }}>
                   <div style={{ fontWeight: 800, color: '#000000', marginBottom: '12px', fontSize: '0.95rem' }}>
                     📱 Receita por Canal
@@ -1361,7 +1362,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                 {/* FORMULÁRIO DE EDIÇÃO */}
                 <div className="card" style={{ padding: '24px' }}>
                   <form onSubmit={handleSaveMentorProfile}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                    <div className="form-grid-2">
                       <div className="form-group">
                         <label className="form-label">Nome Artístico *</label>
                         <input
@@ -1410,7 +1411,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     {/* FOTO DO MENTOR COM UPLOAD */}
                     <div className="form-group">
                       <label className="form-label">Foto Oficial do Mentor</label>
-                      <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px' }}>
+                      <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap' }}>
                         {mentorForm.photo && (
                           <img
                             src={mentorForm.photo}
@@ -1423,11 +1424,12 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                           value={mentorForm.photo}
                           onChange={(e) => setMentorForm({ ...mentorForm, photo: e.target.value })}
                           className="form-input"
+                          style={{ flex: '1 1 200px' }}
                           placeholder="/jayon-tivane.jpg ou link da foto"
                         />
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                         <label className="btn btn-secondary btn-sm" style={{ cursor: 'pointer', fontSize: '0.75rem', padding: '5px 10px' }}>
                           📁 Escolher nova foto do computador
                           <input
@@ -1451,7 +1453,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     </div>
 
                     {/* BADGES */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                    <div className="form-grid-3">
                       <div className="form-group">
                         <label className="form-label" style={{ fontSize: '0.72rem' }}>Badge 1</label>
                         <input
@@ -1506,7 +1508,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     </div>
 
                     {/* MÉTRICAS */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                    <div className="form-grid-3">
                       <div className="form-group">
                         <label className="form-label" style={{ fontSize: '0.72rem' }}>Experiência</label>
                         <input
@@ -1540,7 +1542,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                     </div>
 
                     {/* WHATSAPP */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    <div className="form-grid-2">
                       <div className="form-group">
                         <label className="form-label">Número WhatsApp *</label>
                         <input
@@ -1563,6 +1565,7 @@ export const AdminDashboardPage = ({ onOpenCertificate }) => {
                         />
                       </div>
                     </div>
+
 
                     <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%', marginTop: '10px' }}>
                       <Sparkles size={16} /> Salvar Apresentação do Mentor

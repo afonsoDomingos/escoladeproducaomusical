@@ -51,25 +51,28 @@ export const Footer = ({ setActivePage }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <div 
                 style={{
-                  width: '30px',
-                  height: '30px',
+                  width: '32px',
+                  height: '32px',
                   borderRadius: '4px',
                   backgroundColor: '#FFFFFF',
                   color: '#000000',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: '0.8rem'
                 }}
               >
-                <Music size={16} />
+                APM
               </div>
               <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '0.95rem', color: '#FFFFFF' }}>
-                ESCOLA DE PRODUÇÃO MUSICAL
+                APM • ACADEMIA DE PRODUÇÃO
               </div>
             </div>
             <p style={{ fontSize: '0.84rem', color: '#888888', marginBottom: '16px', lineHeight: 1.5 }}>
-              Formação prática em Produção Musical, Beat Making, Mixagem e Masterização em Moçambique.
+              Formação prática em Produção Musical, Beat Making, Mixagem e Masterização com o mentor <strong>Jayon Tivane</strong> em Moçambique.
             </p>
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <a href="https://www.facebook.com/JAYONMZ" target="_blank" rel="noreferrer" style={{ width: '32px', height: '32px', borderRadius: '4px', backgroundColor: '#171717', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #333333' }}>
                 <FacebookIcon />

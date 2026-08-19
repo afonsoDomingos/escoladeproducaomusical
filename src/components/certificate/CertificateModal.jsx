@@ -45,8 +45,9 @@ export const CertificateModal = ({ isOpen, onClose, certificate, onVerify }) => 
           }}
         >
           <div style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.15em', color: '#666666', textTransform: 'uppercase' }}>
-            Escola de Produção Musical
+            APM • Academia de Produção Musical
           </div>
+
           
           <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#000000', marginTop: '4px', letterSpacing: '-0.02em' }}>
             CERTIFICADO DE CONCLUSÃO
@@ -133,15 +134,16 @@ export const CertificateModal = ({ isOpen, onClose, certificate, onVerify }) => 
 
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontFamily: 'monospace', fontSize: '1rem', color: '#000000', borderBottom: '1px solid #000000', paddingBottom: '2px', marginBottom: '2px', display: 'inline-block' }}>
-                Silva Jermane
+                Jayon Tivane
               </div>
               <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#000000' }}>
-                Silva Jermane Hlatswayo
+                Jayon Tivane (Silva Jermane)
               </div>
               <div style={{ fontSize: '0.68rem', color: '#666666' }}>
-                Diretor & Mentor • EPM
+                Diretor & Mentor • APM
               </div>
             </div>
+
           </div>
         </div>
 

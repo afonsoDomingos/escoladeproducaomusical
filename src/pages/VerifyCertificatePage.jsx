@@ -55,7 +55,7 @@ export const VerifyCertificatePage = ({ initialCode = '', onOpenCertificate }) =
             Verificar Autenticidade de Certificado
           </h1>
           <p style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>
-            Insira o código de autenticação do certificado (ex: <code>EPM-7841-VERIF</code> ou <code>EPM-2026-BM-7841</code>) para confirmar a validade oficial emitida pela Escola de Produção Musical.
+            Insira o código de autenticação do certificado (ex: <code>APM-7841-VERIF</code> ou <code>APM-2026-BM-7841</code>) para confirmar a validade oficial emitida pela APM Academy (Escola de Produção Musical).
           </p>
         </div>
 
@@ -75,13 +75,14 @@ export const VerifyCertificatePage = ({ initialCode = '', onOpenCertificate }) =
             <div style={{ position: 'relative', flex: '1 1 280px' }}>
               <input
                 type="text"
-                placeholder="Insira o código do certificado (ex: EPM-7841-VERIF)..."
+                placeholder="Insira o código do certificado (ex: APM-7841-VERIF)..."
                 value={searchCode}
                 onChange={(e) => setSearchCode(e.target.value)}
                 className="form-input"
                 style={{ paddingLeft: '40px', fontWeight: 600, textTransform: 'uppercase' }}
                 required
               />
+
               <Search size={18} color="var(--purple-400)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
 

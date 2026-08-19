@@ -319,18 +319,19 @@ export const INITIAL_PAYMENTS = [
 export const INITIAL_CERTIFICATES = [
   {
     id: "cert-2026-001",
-    certificateNumber: "EPM-2026-BM-7841",
-    verificationCode: "EPM-7841-VERIF",
+    certificateNumber: "APM-2026-BM-7841",
+    verificationCode: "APM-7841-VERIF",
     userId: "usr-student-afonso",
     userName: "Afonso Domingos",
     courseId: "curso-beat-maker",
     courseTitle: "Curso de Beat Maker Profissional",
     issueDate: "2026-08-10",
     workload: "6 Horas",
-    director: "Silva Jermane Hlatswayo",
+    director: "Jayon Tivane (Silva Jermane)",
     status: "Válido"
   }
 ];
+
 
 
 export const INITIAL_MASTER_REQUESTS = [

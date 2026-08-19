@@ -63,10 +63,10 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
           onClick={() => handleNavClick('home')}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
         >
-          <div style={{ width: '28px', height: '28px', backgroundColor: '#000000', color: '#FFF', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Music size={14} />
+          <div style={{ width: '28px', height: '28px', backgroundColor: '#000000', color: '#FFF', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.8rem' }}>
+            APM
           </div>
-          <span style={{ fontWeight: 800, fontSize: '0.9rem', color: '#000000' }}>EPM</span>
+          <span style={{ fontWeight: 900, fontSize: '0.95rem', color: '#000000', letterSpacing: '0.5px' }}>APM</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -146,28 +146,32 @@ export const Sidebar = ({ activePage, setActivePage, onOpenAuth, onOpenPayment }
           >
             <div 
               style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '6px',
+                width: '38px',
+                height: '38px',
+                borderRadius: '8px',
                 backgroundColor: '#000000',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#FFFFFF',
+                fontWeight: 900,
+                fontSize: '0.85rem',
+                letterSpacing: '-0.5px',
                 flexShrink: 0
               }}
             >
-              <Music size={18} />
+              APM
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '0.95rem', lineHeight: 1.2, color: '#000000' }}>
-                ESCOLA DE PRODUÇÃO
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 900, fontSize: '0.98rem', lineHeight: 1.15, color: '#000000', letterSpacing: '-0.02em' }}>
+                APM ACADEMY
               </div>
-              <div style={{ fontSize: '0.65rem', color: '#666666', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                Silva Jermane
+              <div style={{ fontSize: '0.65rem', color: '#666666', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                Jayon Tivane
               </div>
             </div>
           </div>
+
 
           {/* MENU TITLE */}
           <div style={{ fontSize: '0.68rem', fontWeight: 800, color: '#888888', textTransform: 'uppercase', marginBottom: '8px', paddingLeft: '8px' }}>

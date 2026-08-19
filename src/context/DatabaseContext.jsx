@@ -353,16 +353,17 @@ export const DatabaseProvider = ({ children }) => {
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const newCert = {
       id: `cert-${Date.now()}`,
-      certificateNumber: `EPM-2026-${randomSuffix}`,
-      verificationCode: `EPM-${randomSuffix}-VERIF`,
+      certificateNumber: `APM-2026-${randomSuffix}`,
+      verificationCode: `APM-${randomSuffix}-VERIF`,
       userId: uId,
       userName: name,
       courseId: targetCourse.id,
       courseTitle: targetCourse.title,
       issueDate: new Date().toISOString().split('T')[0],
       workload: targetCourse.duration?.split('•')[0]?.trim() || "20 Horas",
-      director: "Silva Jermane Hlatswayo",
+      director: "Jayon Tivane (Silva Jermane)",
       status: "Válido"
+
     };
 
     setCertificates(prev => [newCert, ...prev]);

@@ -223,8 +223,9 @@ export const HomePage = ({ setActivePage, onOpenPayment, onSelectCourse }) => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22C55E' }}></div>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.74rem', color: '#A1A1AA', letterSpacing: '0.05em' }}>
-                      EPM STUDIO SAMPLER • 44.1kHz
+                      APM STUDIO SAMPLER • 44.1kHz
                     </span>
+
                   </div>
 
                   <div className="eq-bars">
